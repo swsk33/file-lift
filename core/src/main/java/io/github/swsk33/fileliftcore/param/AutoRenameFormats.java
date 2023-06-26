@@ -3,7 +3,7 @@ package io.github.swsk33.fileliftcore.param;
 /**
  * 自动命名格式常量
  */
-public class AutoRenameFormat {
+public class AutoRenameFormats {
 
 	/**
 	 * 使用UUID

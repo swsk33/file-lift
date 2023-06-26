@@ -1,7 +1,7 @@
 package io.github.swsk33.fileliftcore.model.config;
 
-import io.github.swsk33.fileliftcore.param.AutoRenameFormat;
-import io.github.swsk33.fileliftcore.param.FileStorage;
+import io.github.swsk33.fileliftcore.param.AutoRenameFormats;
+import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import lombok.Data;
 
 /**
@@ -15,7 +15,7 @@ public abstract class FileConfig {
 	 * 配置值参考：io.github.swsk33.fileliftcore.param.FileStorage中常量值
 	 * 若未配置或者配置为其它错误的值，则按照默认的filesystem方式
 	 */
-	private String storage = FileStorage.FILE;
+	private String storage = FileStorageMethods.FILE;
 
 	/**
 	 * 允许的文件格式（扩展名，不带.），若不配置则允许任何格式文件上传
@@ -46,6 +46,6 @@ public abstract class FileConfig {
 	 * 配置值参考io.github.swsk33.fileliftcore.param.AutoRenameFormat中的常量值
 	 * 若未配置或者配置为其它错误值，则按照默认的simple_uuid方式
 	 */
-	private String autoRenameFormat = AutoRenameFormat.SIMPLE_UUID;
+	private String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
 
 }

@@ -1,6 +1,6 @@
 package io.github.swsk33.fileliftcore.strategy.context;
 
-import io.github.swsk33.fileliftcore.param.AutoRenameFormat;
+import io.github.swsk33.fileliftcore.param.AutoRenameFormats;
 import io.github.swsk33.fileliftcore.strategy.FileNameStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.SimpleUUIDFileNameStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.SnowflakeFileNameStrategy;
@@ -19,13 +19,11 @@ public class FileNameStrategyContext {
 	 */
 	public static final Map<String, FileNameStrategy> FILE_NAME_STRATEGY_MAP = new HashMap<>();
 
-	/*
-	  初始化所有策略
-	 */
+	// 初始化策略
 	static {
-		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormat.UUID, new UUIDFileNameStrategy());
-		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormat.SIMPLE_UUID, new SimpleUUIDFileNameStrategy());
-		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormat.SNOW_FLAKE, new SnowflakeFileNameStrategy());
+		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.UUID, new UUIDFileNameStrategy());
+		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.SIMPLE_UUID, new SimpleUUIDFileNameStrategy());
+		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.SNOW_FLAKE, new SnowflakeFileNameStrategy());
 	}
 
 	/**
@@ -36,7 +34,7 @@ public class FileNameStrategyContext {
 	 */
 	public static String generateFileName(String fileNameFormat) {
 		if (!FILE_NAME_STRATEGY_MAP.containsKey(fileNameFormat)) {
-			return FILE_NAME_STRATEGY_MAP.get(AutoRenameFormat.SIMPLE_UUID).generateFileName();
+			return FILE_NAME_STRATEGY_MAP.get(AutoRenameFormats.SIMPLE_UUID).generateFileName();
 		}
 		return FILE_NAME_STRATEGY_MAP.get(fileNameFormat).generateFileName();
 	}

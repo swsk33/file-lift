@@ -3,7 +3,7 @@ package io.github.swsk33.fileliftcore.param;
 /**
  * 文件存储方式
  */
-public class FileStorage {
+public class FileStorageMethods {
 
 	/**
 	 * 使用文件系统存储文件
