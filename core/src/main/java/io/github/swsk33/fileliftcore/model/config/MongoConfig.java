@@ -9,11 +9,6 @@ import lombok.Data;
 public class MongoConfig extends FileConfig {
 
 	/**
-	 * 唯一单例
-	 */
-	private static MongoConfig INSTANCE;
-
-	/**
 	 * 私有化构造器
 	 */
 	private MongoConfig() {
@@ -29,7 +24,7 @@ public class MongoConfig extends FileConfig {
 		if (INSTANCE == null) {
 			INSTANCE = new MongoConfig();
 		}
-		return INSTANCE;
+		return (MongoConfig) INSTANCE;
 	}
 
 	/**

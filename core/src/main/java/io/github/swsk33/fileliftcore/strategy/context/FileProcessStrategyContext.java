@@ -94,4 +94,15 @@ public class FileProcessStrategyContext {
 		return getStrategy(storageMethod).findFileByFullName(fullName);
 	}
 
+	/**
+	 * 根据完整文件名判断文件是否存在
+	 *
+	 * @param storageMethod 文件储存方式
+	 * @param fullName      文件名（需要包含扩展名）
+	 * @return 该文件是否存在
+	 */
+	public static boolean fileExists(String storageMethod, String fullName) {
+		return getStrategy(storageMethod).fileExists(fullName);
+	}
+
 }

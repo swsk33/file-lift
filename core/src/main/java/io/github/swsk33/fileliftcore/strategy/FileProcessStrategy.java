@@ -44,9 +44,17 @@ public interface FileProcessStrategy {
 	 * 根据完整文件名直接获取文件
 	 * 该方法没有查找过程，效率较高，但是要使用文件完整名称
 	 *
-	 * @param fullName 文件名（需要包含扩展名）
+	 * @param fullName 完整文件名（需要包含扩展名）
 	 * @return 文件查找结果，包含文件内容信息，不存在返回null
 	 */
 	UploadFile findFileByFullName(String fullName);
+
+	/**
+	 * 传入一个完整文件名，判断文件是否存在
+	 *
+	 * @param fullName 完整文件名（需要包含扩展名）
+	 * @return 该文件是否存在
+	 */
+	boolean fileExists(String fullName);
 
 }

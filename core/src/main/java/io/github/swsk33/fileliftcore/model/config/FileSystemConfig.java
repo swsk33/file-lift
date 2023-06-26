@@ -9,11 +9,6 @@ import lombok.Data;
 public class FileSystemConfig extends FileConfig {
 
 	/**
-	 * 唯一单例
-	 */
-	private static FileSystemConfig INSTANCE;
-
-	/**
 	 * 私有化构造器
 	 */
 	private FileSystemConfig() {
@@ -29,7 +24,7 @@ public class FileSystemConfig extends FileConfig {
 		if (INSTANCE == null) {
 			INSTANCE = new FileSystemConfig();
 		}
-		return INSTANCE;
+		return (FileSystemConfig) INSTANCE;
 	}
 
 	/**

@@ -15,11 +15,6 @@ import static io.github.swsk33.fileliftcore.util.URLEncodeUtils.percentEncode;
 public class MongoClientConfig {
 
 	/**
-	 * 获取配置单例
-	 */
-	private static MongoConfig config;
-
-	/**
 	 * 数据库客户端对象
 	 */
 	private static MongoClient mongoClient;
@@ -44,7 +39,8 @@ public class MongoClientConfig {
 	public static GridFSBucket getBucket() {
 		// 第一次调用的初始化操作（懒加载）
 		if (mongoClient == null || bucket == null) {
-			config = MongoConfig.getInstance();
+			// 获取配置
+			MongoConfig config = MongoConfig.getInstance();
 			// 拼接连接字符串
 			StringBuilder url = new StringBuilder("mongodb://");
 			if (!StrUtil.isEmpty(config.getUsername()) && !StrUtil.isEmpty(config.getPassword())) {

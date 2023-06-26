@@ -11,7 +11,8 @@ import io.github.swsk33.fileliftcore.util.GridFSUtils;
 import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
 
-import static io.github.swsk33.fileliftcore.util.GridFSUtils.*;
+import static io.github.swsk33.fileliftcore.util.GridFSUtils.findFileByName;
+import static io.github.swsk33.fileliftcore.util.GridFSUtils.uploadFile;
 
 /**
  * 基于MongoDB GridFS的文件保存策略
@@ -57,7 +58,7 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 		if (bucket == null) {
 			init();
 		}
-		if (!fileExists(bucket, filename)) {
+		if (!GridFSUtils.fileExists(bucket, filename)) {
 			return;
 		}
 		GridFSUtils.deleteFile(bucket, filename);
@@ -69,7 +70,7 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 		if (bucket == null) {
 			init();
 		}
-		if (!fileExists(bucket, originName)) {
+		if (!GridFSUtils.fileExists(bucket, originName)) {
 			return;
 		}
 		GridFSUtils.renameFile(bucket, originName, newName);
@@ -102,6 +103,11 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 			init();
 		}
 		return findFileByMainName(FileNameUtil.mainName(fullName));
+	}
+
+	@Override
+	public boolean fileExists(String fullName) {
+		return GridFSUtils.fileExists(bucket, FileNameUtil.mainName(fullName));
 	}
 
 }

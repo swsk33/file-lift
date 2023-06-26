@@ -145,4 +145,9 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 		return LocalFile.createLocalFile(saveFolder.getAbsolutePath() + File.separator + fullName, true);
 	}
 
+	@Override
+	public boolean fileExists(String fullName) {
+		return FileUtil.file(saveFolder.getAbsolutePath() + File.separator + fullName).exists();
+	}
+
 }
