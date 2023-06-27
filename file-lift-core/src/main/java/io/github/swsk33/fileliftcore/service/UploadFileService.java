@@ -8,7 +8,6 @@ import java.io.InputStream;
 
 /**
  * 用于对上传的文件进行操作的类，不限于接收上传的文件、获取文件等等
- * 下列所有文件名参数，不需要带扩展名
  */
 public interface UploadFileService {
 
