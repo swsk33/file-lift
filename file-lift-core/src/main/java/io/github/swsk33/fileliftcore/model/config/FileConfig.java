@@ -21,8 +21,9 @@ public abstract class FileConfig {
 	 * @return 配置单例
 	 */
 	public static FileConfig getInstance() {
+		// 如果调用该类的单例为空，说明很可能storageMethod未正确配置而未触发Spring Boot自动配置，此时默认初始化文件系统储存方案的配置类单例
 		if (INSTANCE == null) {
-			throw new RuntimeException("配置对象为空！请先调用该类子配置类的getInstance方法完成配置单例初始化并设定配置字段值！");
+			INSTANCE = FileSystemConfig.getInstance();
 		}
 		return INSTANCE;
 	}

@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * 用于文件增删改查策略的上下文
+ * 该上下文采用延迟初始化策略的方式
  */
 public class FileProcessStrategyContext {
 
@@ -20,10 +21,16 @@ public class FileProcessStrategyContext {
 	 */
 	private static final Map<String, FileProcessStrategy> FILE_PROCESS_STRATEGY_MAP = new HashMap<>();
 
-	// 初始化策略
+	/**
+	 * 存放文件储存方式名（常量）对应的文件储存策略类的容器
+	 * 用于在延迟初始化的时候，通过文件储存方式取出对应的策略类，并利用反射实例化然后放入策略容器
+	 */
+	private static final Map<String, Class<?>> FILE_STORAGE_METHOD_CLASS_MAP = new HashMap<>();
+
+	// 初始化储存方式常量对应的策略类容器
 	static {
-		FILE_PROCESS_STRATEGY_MAP.put(FileStorageMethods.FILE, new FileSystemProcessStrategy());
-		FILE_PROCESS_STRATEGY_MAP.put(FileStorageMethods.MONGO, new MongoDBFileProcessStrategy());
+		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.FILE, FileSystemProcessStrategy.class);
+		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.MONGO, MongoDBFileProcessStrategy.class);
 	}
 
 	/**
@@ -33,6 +40,15 @@ public class FileProcessStrategyContext {
 	 * @return 策略对象，如果文件储存方式不存在，则使用默认
 	 */
 	private static FileProcessStrategy getStrategy(String storageMethod) {
+		// 如果该文件储存方式位于储存方式常量列表中，但是不在策略容器中，说明还未进行初始化
+		if (FileStorageMethods.contains(storageMethod) && !FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
+			try {
+				FILE_PROCESS_STRATEGY_MAP.put(storageMethod, (FileProcessStrategy) FILE_STORAGE_METHOD_CLASS_MAP.get(storageMethod).getConstructor().newInstance());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 否则，就是传入了不存在的文件储存方式，按照默认值执行
 		if (!FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
 			return FILE_PROCESS_STRATEGY_MAP.get(FileStorageMethods.FILE);
 		}

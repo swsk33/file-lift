@@ -38,7 +38,7 @@ public class LocalFile extends UploadFile {
 	public static LocalFile createLocalFile(String absolutePath, boolean readFile) {
 		// 第一次调用时初始化当前路径值
 		if (currentPath == null) {
-			currentPath = Paths.get("");
+			currentPath = Paths.get("").toAbsolutePath();
 		}
 		if (!FileUtil.exist(absolutePath)) {
 			return null;

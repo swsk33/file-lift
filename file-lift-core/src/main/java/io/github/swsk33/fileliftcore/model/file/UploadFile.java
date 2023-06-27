@@ -1,5 +1,6 @@
 package io.github.swsk33.fileliftcore.model.file;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
  * 文件抽象类
  */
 @Data
+@JsonIgnoreProperties("fileStream")
 public abstract class UploadFile {
 
 	/**
@@ -24,7 +26,7 @@ public abstract class UploadFile {
 	private String format;
 
 	/**
-	 * 文件流对象，用于获取该文件的内容
+	 * 文件流对象，用于获取该文件的内容（不会序列化）
 	 */
 	private InputStream fileStream;
 

@@ -12,3 +12,6 @@
 # IDEA
 /**/.idea/
 /**/*.iml
+
+# 测试上传的文件
+/file-lift-test/**/avatar/

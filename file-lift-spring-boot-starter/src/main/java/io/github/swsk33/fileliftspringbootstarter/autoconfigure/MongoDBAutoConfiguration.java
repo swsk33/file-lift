@@ -17,27 +17,43 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({CoreProperties.class})
-@ConditionalOnProperty(prefix = "io.github.swsk33", name = "storage-method", havingValue = FileStorageMethods.MONGO)
+@ConditionalOnProperty(prefix = "io.github.swsk33.file-lift.core", name = "storage-method", havingValue = FileStorageMethods.MONGO)
 @AutoConfigureBefore(UploadFileServiceAutoConfiguration.class)
 public class MongoDBAutoConfiguration {
 
-	// 下面注入一些MongoDB的配置值
-
+	/**
+	 * 读取MongoDB数据库地址
+	 */
 	@Value("${spring.data.mongodb.host}")
 	private String host;
 
+	/**
+	 * 读取MongoDB数据库端口
+	 */
 	@Value("${spring.data.mongodb.port:27017")
 	private int port;
 
+	/**
+	 * 读取MongoDB数据库的默认库名
+	 */
 	@Value("${spring.data.mongodb.database}")
 	private String database;
 
+	/**
+	 * 读取MongoDB数据库用户名
+	 */
 	@Value("${spring.data.mongodb.username}")
 	private String username;
 
+	/**
+	 * 读取MongoDB数据库密码
+	 */
 	@Value("${spring.data.mongodb.password}")
 	private String password;
 
+	/**
+	 * 读取MongoDB数据库的用户认证数据库
+	 */
 	@Value("${spring.data.mongodb.authentication-database:admin}")
 	private String authDatabase;
 
