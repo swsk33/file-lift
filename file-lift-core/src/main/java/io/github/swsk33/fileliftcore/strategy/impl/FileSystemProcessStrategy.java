@@ -3,6 +3,7 @@ package io.github.swsk33.fileliftcore.strategy.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.config.FileSystemConfig;
 import io.github.swsk33.fileliftcore.model.file.LocalFile;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
@@ -10,7 +11,6 @@ import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -147,17 +147,17 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 	}
 
 	@Override
-	public InputStream downloadFileByMainName(String filename) {
+	public BinaryContent downloadFileByMainName(String filename) {
 		// 先查找文件
-		UploadFile getFile = findFileByMainName(filename);
-		return getFile == null ? null : FileUtil.getInputStream(((LocalFile) getFile).getAbsolutePath());
+		LocalFile getFile = (LocalFile) findFileByMainName(filename);
+		return getFile == null ? null : getFile.toBinaryContent();
 	}
 
 	@Override
-	public InputStream downloadFileByFullName(String fullName) {
+	public BinaryContent downloadFileByFullName(String fullName) {
 		// 先获取文件
-		UploadFile getFile = findFileByFullName(fullName);
-		return getFile == null ? null : FileUtil.getInputStream(((LocalFile) getFile).getAbsolutePath());
+		LocalFile getFile = (LocalFile) findFileByFullName(fullName);
+		return getFile == null ? null : getFile.toBinaryContent();
 	}
 
 }

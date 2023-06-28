@@ -2,6 +2,8 @@ package io.github.swsk33.fileliftcore.model.file;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.http.HttpUtil;
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import lombok.Data;
 
 import java.nio.file.Path;
@@ -61,6 +63,14 @@ public class LocalFile extends UploadFile {
 		newFile.setAbsolutePath(absolutePath);
 		newFile.setRelativePath(getCurrentPath().relativize(Paths.get(absolutePath)).toString());
 		return newFile;
+	}
+
+	@Override
+	public BinaryContent toBinaryContent() {
+		BinaryContent content = new BinaryContent();
+		content.setContentType(HttpUtil.getMimeType(absolutePath, "application/octet-stream"));
+		content.setFileStream(FileUtil.getInputStream(absolutePath));
+		return content;
 	}
 
 }

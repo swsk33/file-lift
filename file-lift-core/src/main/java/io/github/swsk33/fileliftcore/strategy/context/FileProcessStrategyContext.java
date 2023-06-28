@@ -1,5 +1,6 @@
 package io.github.swsk33.fileliftcore.strategy.context;
 
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
@@ -7,7 +8,6 @@ import io.github.swsk33.fileliftcore.strategy.impl.FileSystemProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.MongoDBFileProcessStrategy;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,7 +77,7 @@ public class FileProcessStrategyContext {
 	public static void deleteFile(String storageMethod, String filename) {
 		getStrategy(storageMethod).deleteFile(filename);
 	}
-	
+
 	/**
 	 * 根据文件名查找文件，不使用扩展名
 	 *
@@ -116,9 +116,9 @@ public class FileProcessStrategyContext {
 	 *
 	 * @param storageMethod 文件储存方式
 	 * @param filename      文件名（不带扩展名）
-	 * @return 文件流对象，不存在返回null
+	 * @return 文件的二进制内容信息对象，文件不存在返回null
 	 */
-	public static InputStream downloadFileByMainName(String storageMethod, String filename) {
+	public static BinaryContent downloadFileByMainName(String storageMethod, String filename) {
 		return getStrategy(storageMethod).downloadFileByMainName(filename);
 	}
 
@@ -127,9 +127,9 @@ public class FileProcessStrategyContext {
 	 *
 	 * @param storageMethod 文件储存方式
 	 * @param fullName      文件名（需要包含扩展名）
-	 * @return 文件流对象，不存在返回null
+	 * @return 文件的二进制内容信息对象，文件不存在返回null
 	 */
-	public static InputStream downloadFileByFullName(String storageMethod, String fullName) {
+	public static BinaryContent downloadFileByFullName(String storageMethod, String fullName) {
 		return getStrategy(storageMethod).downloadFileByFullName(fullName);
 	}
 

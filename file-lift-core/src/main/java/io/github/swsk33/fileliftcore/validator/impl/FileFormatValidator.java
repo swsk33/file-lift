@@ -3,7 +3,7 @@ package io.github.swsk33.fileliftcore.validator.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.swsk33.fileliftcore.model.FileValidateResult;
+import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
 import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import org.springframework.web.multipart.MultipartFile;

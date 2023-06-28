@@ -1,6 +1,6 @@
 package io.github.swsk33.fileliftcore.validator.context;
 
-import io.github.swsk33.fileliftcore.model.FileValidateResult;
+import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import io.github.swsk33.fileliftcore.validator.impl.FileFormatValidator;
 import io.github.swsk33.fileliftcore.validator.impl.FileOverrideValidator;

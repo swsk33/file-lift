@@ -1,10 +1,9 @@
 package io.github.swsk33.fileliftcore.service;
 
-import io.github.swsk33.fileliftcore.model.FileResult;
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
+import io.github.swsk33.fileliftcore.model.result.FileResult;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 /**
  * 用于对上传的文件进行操作的类，不限于接收上传的文件、获取文件等等
@@ -50,7 +49,7 @@ public interface UploadFileService {
 	 * @param filename 文件名（不带扩展名）
 	 * @return 文件结果
 	 */
-	FileResult<InputStream> downloadFileByMainName(String filename);
+	FileResult<BinaryContent> downloadFileByMainName(String filename);
 
 	/**
 	 * 根据文件的完整名称直接获取对应文件并下载，得到文件流
@@ -59,6 +58,6 @@ public interface UploadFileService {
 	 * @param fullName 文件全名（需要包含扩展名）
 	 * @return 文件结果
 	 */
-	FileResult<InputStream> downloadFileByFullName(String fullName);
+	FileResult<BinaryContent> downloadFileByFullName(String fullName);
 
 }

@@ -1,9 +1,8 @@
 package io.github.swsk33.fileliftcore.strategy;
 
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 /**
  * 文件的增删改查策略
@@ -55,16 +54,16 @@ public interface FileProcessStrategy {
 	 * 根据文件名下载文件
 	 *
 	 * @param filename 文件名（不带扩展名）
-	 * @return 文件的输入流，文件不存在返回null
+	 * @return 文件的二进制内容信息对象，文件不存在返回null
 	 */
-	InputStream downloadFileByMainName(String filename);
+	BinaryContent downloadFileByMainName(String filename);
 
 	/**
 	 * 根据完整的文件名下载文件
 	 *
 	 * @param fullName 完整文件名（需要包含扩展名）
-	 * @return 文件的输入流，文件不存在返回null
+	 * @return 文件的二进制内容信息对象，文件不存在返回null
 	 */
-	InputStream downloadFileByFullName(String fullName);
+	BinaryContent downloadFileByFullName(String fullName);
 
 }

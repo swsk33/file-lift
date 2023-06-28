@@ -1,4 +1,4 @@
-package io.github.swsk33.fileliftcore.model;
+package io.github.swsk33.fileliftcore.model.result;
 
 import lombok.Data;
 

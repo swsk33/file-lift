@@ -1,6 +1,6 @@
 package io.github.swsk33.fileliftcore.validator;
 
-import io.github.swsk33.fileliftcore.model.FileValidateResult;
+import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

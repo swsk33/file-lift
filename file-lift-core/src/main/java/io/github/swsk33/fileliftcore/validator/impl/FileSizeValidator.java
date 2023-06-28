@@ -1,6 +1,6 @@
 package io.github.swsk33.fileliftcore.validator.impl;
 
-import io.github.swsk33.fileliftcore.model.FileValidateResult;
+import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
 import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import org.springframework.web.multipart.MultipartFile;

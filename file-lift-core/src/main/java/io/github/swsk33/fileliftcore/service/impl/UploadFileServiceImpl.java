@@ -1,17 +1,16 @@
 package io.github.swsk33.fileliftcore.service.impl;
 
 import cn.hutool.core.io.file.FileNameUtil;
-import io.github.swsk33.fileliftcore.model.FileResult;
-import io.github.swsk33.fileliftcore.model.FileValidateResult;
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
+import io.github.swsk33.fileliftcore.model.result.FileResult;
+import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
 import io.github.swsk33.fileliftcore.service.UploadFileService;
 import io.github.swsk33.fileliftcore.strategy.context.FileNameStrategyContext;
 import io.github.swsk33.fileliftcore.strategy.context.FileProcessStrategyContext;
 import io.github.swsk33.fileliftcore.validator.context.FileValidatorContext;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 /**
  * 文件上传实现类
@@ -55,15 +54,15 @@ public class UploadFileServiceImpl implements UploadFileService {
 	}
 
 	@Override
-	public FileResult<InputStream> downloadFileByMainName(String filename) {
-		InputStream getFileStream = FileProcessStrategyContext.downloadFileByMainName(config.getStorageMethod(), filename);
-		return getFileStream == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", getFileStream);
+	public FileResult<BinaryContent> downloadFileByMainName(String filename) {
+		BinaryContent content = FileProcessStrategyContext.downloadFileByMainName(config.getStorageMethod(), filename);
+		return content == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", content);
 	}
 
 	@Override
-	public FileResult<InputStream> downloadFileByFullName(String fullName) {
-		InputStream getFileStream = FileProcessStrategyContext.downloadFileByFullName(config.getStorageMethod(), fullName);
-		return getFileStream == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", getFileStream);
+	public FileResult<BinaryContent> downloadFileByFullName(String fullName) {
+		BinaryContent content = FileProcessStrategyContext.downloadFileByFullName(config.getStorageMethod(), fullName);
+		return content == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", content);
 	}
 
 }

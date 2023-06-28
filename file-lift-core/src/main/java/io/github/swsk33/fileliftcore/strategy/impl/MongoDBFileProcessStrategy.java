@@ -4,6 +4,7 @@ import cn.hutool.core.io.file.FileNameUtil;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import io.github.swsk33.fileliftcore.config.MongoClientConfig;
+import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.model.file.MongoFile;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
@@ -11,8 +12,6 @@ import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import io.github.swsk33.fileliftcore.util.GridFSUtils;
 import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
 
 import static io.github.swsk33.fileliftcore.util.GridFSUtils.findFileByName;
 import static io.github.swsk33.fileliftcore.util.GridFSUtils.uploadFile;
@@ -102,15 +101,15 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 	}
 
 	@Override
-	public InputStream downloadFileByMainName(String filename) {
-		UploadFile getFile = findFileByMainName(filename);
-		return getFile == null ? null : getBucket().openDownloadStream(((MongoFile) getFile).getId());
+	public BinaryContent downloadFileByMainName(String filename) {
+		MongoFile getFile = (MongoFile) findFileByMainName(filename);
+		return getFile == null ? null : getFile.toBinaryContent();
 	}
 
 	@Override
-	public InputStream downloadFileByFullName(String fullName) {
-		UploadFile getFile = findFileByFullName(fullName);
-		return getFile == null ? null : getBucket().openDownloadStream(((MongoFile) getFile).getId());
+	public BinaryContent downloadFileByFullName(String fullName) {
+		MongoFile getFile = (MongoFile) findFileByFullName(fullName);
+		return getFile == null ? null : getFile.toBinaryContent();
 	}
 
 }

@@ -29,6 +29,13 @@
 				<artifactId>spring-boot-starter-web</artifactId>
 				<version>${spring.boot.test.version}</version>
 			</dependency>
+
+			<!-- Spring Data MongoDB -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-mongodb</artifactId>
+				<version>${spring.boot.test.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>
