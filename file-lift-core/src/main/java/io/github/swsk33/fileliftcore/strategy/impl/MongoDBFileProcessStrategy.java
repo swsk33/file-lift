@@ -4,12 +4,15 @@ import cn.hutool.core.io.file.FileNameUtil;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import io.github.swsk33.fileliftcore.config.MongoClientConfig;
+import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.model.file.MongoFile;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import io.github.swsk33.fileliftcore.util.GridFSUtils;
 import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
 
 import static io.github.swsk33.fileliftcore.util.GridFSUtils.findFileByName;
 import static io.github.swsk33.fileliftcore.util.GridFSUtils.uploadFile;
@@ -22,25 +25,38 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 	/**
 	 * GridFS桶对象
 	 */
-	private GridFSBucket bucket;
+	private volatile GridFSBucket bucket;
 
 	/**
-	 * 第一次存放文件时，执行初始化操作（懒加载）
+	 * 获取GridFS桶对象
+	 *
+	 * @return GridFS桶对象
 	 */
-	private void init() {
-		bucket = MongoClientConfig.getBucket();
+	private GridFSBucket getBucket() {
+		// 使用双检锁延迟初始化对象
+		if (bucket == null) {
+			synchronized (MongoDBFileProcessStrategy.class) {
+				if (bucket == null) {
+					bucket = MongoClientConfig.getBucket();
+				}
+			}
+		}
+		return bucket;
 	}
 
 	@Override
 	public UploadFile saveFile(MultipartFile file, String saveName) {
-		// 第一次调用时初始化
-		if (bucket == null) {
-			init();
-		}
 		String formatName = FileNameUtil.extName(file.getOriginalFilename());
+		// 如果关闭了自动重命名且开启了允许覆盖，则先查找数据库是否存在对应文件名，若存在则先删除
+		if (!FileConfig.getInstance().isAutoRename() && FileConfig.getInstance().isOverride()) {
+			MongoFile getFile = (MongoFile) findFileByMainName(saveName);
+			if (getFile != null) {
+				bucket.delete(getFile.getId());
+			}
+		}
 		ObjectId id;
 		try {
-			id = uploadFile(bucket, file.getInputStream(), saveName, formatName);
+			id = uploadFile(getBucket(), file.getInputStream(), saveName, formatName);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -54,35 +70,15 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 
 	@Override
 	public void deleteFile(String filename) {
-		// 第一次调用时初始化
-		if (bucket == null) {
-			init();
-		}
-		if (!GridFSUtils.fileExists(bucket, filename)) {
+		if (!GridFSUtils.fileExists(getBucket(), filename)) {
 			return;
 		}
-		GridFSUtils.deleteFile(bucket, filename);
-	}
-
-	@Override
-	public void renameFile(String originName, String newName) {
-		// 第一次调用时初始化
-		if (bucket == null) {
-			init();
-		}
-		if (!GridFSUtils.fileExists(bucket, originName)) {
-			return;
-		}
-		GridFSUtils.renameFile(bucket, originName, newName);
+		GridFSUtils.deleteFile(getBucket(), filename);
 	}
 
 	@Override
 	public UploadFile findFileByMainName(String filename) {
-		// 第一次调用时初始化
-		if (bucket == null) {
-			init();
-		}
-		GridFSFile getFile = findFileByName(bucket, filename);
+		GridFSFile getFile = findFileByName(getBucket(), filename);
 		if (getFile == null) {
 			return null;
 		}
@@ -91,23 +87,30 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 		if (getFile.getMetadata() != null) {
 			result.setFormat(getFile.getMetadata().get("type").toString());
 		}
-		result.setFileStream(bucket.openDownloadStream(getFile.getObjectId()));
 		result.setId(getFile.getObjectId());
 		return result;
 	}
 
 	@Override
 	public UploadFile findFileByFullName(String fullName) {
-		// 第一次调用时初始化
-		if (bucket == null) {
-			init();
-		}
 		return findFileByMainName(FileNameUtil.mainName(fullName));
 	}
 
 	@Override
 	public boolean fileExists(String fullName) {
-		return GridFSUtils.fileExists(bucket, FileNameUtil.mainName(fullName));
+		return GridFSUtils.fileExists(getBucket(), FileNameUtil.mainName(fullName));
+	}
+
+	@Override
+	public InputStream downloadFileByMainName(String filename) {
+		UploadFile getFile = findFileByMainName(filename);
+		return getFile == null ? null : getBucket().openDownloadStream(((MongoFile) getFile).getId());
+	}
+
+	@Override
+	public InputStream downloadFileByFullName(String fullName) {
+		UploadFile getFile = findFileByFullName(fullName);
+		return getFile == null ? null : getBucket().openDownloadStream(((MongoFile) getFile).getId());
 	}
 
 }

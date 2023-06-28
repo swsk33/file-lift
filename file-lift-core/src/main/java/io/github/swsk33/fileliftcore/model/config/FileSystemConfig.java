@@ -21,8 +21,13 @@ public class FileSystemConfig extends FileConfig {
 	 * @return 唯一单例
 	 */
 	public static FileSystemConfig getInstance() {
+		// 双检锁延迟初始化
 		if (INSTANCE == null) {
-			INSTANCE = new FileSystemConfig();
+			synchronized (FileSystemConfig.class) {
+				if (INSTANCE == null) {
+					INSTANCE = new FileSystemConfig();
+				}
+			}
 		}
 		return (FileSystemConfig) INSTANCE;
 	}

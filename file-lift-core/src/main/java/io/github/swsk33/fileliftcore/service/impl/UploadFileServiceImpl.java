@@ -43,45 +43,27 @@ public class UploadFileServiceImpl implements UploadFileService {
 	}
 
 	@Override
-	public FileResult<Void> rename(String originName, String newName) {
-		FileProcessStrategyContext.renameFile(config.getStorageMethod(), originName, newName);
-		return FileResult.resultSuccess("重命名文件完成！");
-	}
-
-	@Override
 	public FileResult<UploadFile> findByMainName(String filename) {
 		UploadFile getFile = FileProcessStrategyContext.findFileByMainName(config.getStorageMethod(), filename);
-		if (getFile == null) {
-			return FileResult.resultFailed("文件不存在！");
-		}
-		return FileResult.resultSuccess("查找文件完成！", getFile);
+		return getFile == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("查找文件完成！", getFile);
 	}
 
 	@Override
 	public FileResult<UploadFile> findByFullName(String fullName) {
 		UploadFile getFile = FileProcessStrategyContext.findFileByFullName(config.getStorageMethod(), fullName);
-		if (getFile == null) {
-			return FileResult.resultFailed("文件不存在！");
-		}
-		return FileResult.resultSuccess("查找文件完成！", getFile);
+		return getFile == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("查找文件完成！", getFile);
 	}
 
 	@Override
 	public FileResult<InputStream> downloadFileByMainName(String filename) {
-		FileResult<UploadFile> findResult = findByMainName(filename);
-		if (!findResult.isSuccess()) {
-			return FileResult.resultFailed(findResult.getMessage());
-		}
-		return FileResult.resultSuccess("已获取到文件流！", findResult.getData().getFileStream());
+		InputStream getFileStream = FileProcessStrategyContext.downloadFileByMainName(config.getStorageMethod(), filename);
+		return getFileStream == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", getFileStream);
 	}
 
 	@Override
 	public FileResult<InputStream> downloadFileByFullName(String fullName) {
-		FileResult<UploadFile> findResult = findByFullName(fullName);
-		if (!findResult.isSuccess()) {
-			return FileResult.resultFailed(findResult.getMessage());
-		}
-		return FileResult.resultSuccess("已获取到文件流！", findResult.getData().getFileStream());
+		InputStream getFileStream = FileProcessStrategyContext.downloadFileByFullName(config.getStorageMethod(), fullName);
+		return getFileStream == null ? FileResult.resultFailed("文件不存在！") : FileResult.resultSuccess("已获取到文件流！", getFileStream);
 	}
 
 }

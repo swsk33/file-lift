@@ -3,6 +3,8 @@ package io.github.swsk33.fileliftcore.strategy;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
+
 /**
  * 文件的增删改查策略
  */
@@ -13,7 +15,7 @@ public interface FileProcessStrategy {
 	 *
 	 * @param file     文件对象
 	 * @param saveName 保存的文件名（不带扩展名）
-	 * @return 保存的文件对象，其中不包含文件内容信息（文件流为空），若保存失败则返回null
+	 * @return 保存的文件对象，若保存失败则返回null
 	 */
 	UploadFile saveFile(MultipartFile file, String saveName);
 
@@ -23,14 +25,6 @@ public interface FileProcessStrategy {
 	 * @param filename 要删除的文件名（不带扩展名）
 	 */
 	void deleteFile(String filename);
-
-	/**
-	 * 重命名文件
-	 *
-	 * @param originName 原始文件名（不带扩展名）
-	 * @param newName    新的文件名（不带扩展名）
-	 */
-	void renameFile(String originName, String newName);
 
 	/**
 	 * 根据文件名查找文件，不使用扩展名
@@ -56,5 +50,21 @@ public interface FileProcessStrategy {
 	 * @return 该文件是否存在
 	 */
 	boolean fileExists(String fullName);
+
+	/**
+	 * 根据文件名下载文件
+	 *
+	 * @param filename 文件名（不带扩展名）
+	 * @return 文件的输入流，文件不存在返回null
+	 */
+	InputStream downloadFileByMainName(String filename);
+
+	/**
+	 * 根据完整的文件名下载文件
+	 *
+	 * @param fullName 完整文件名（需要包含扩展名）
+	 * @return 文件的输入流，文件不存在返回null
+	 */
+	InputStream downloadFileByFullName(String fullName);
 
 }

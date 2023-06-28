@@ -48,21 +48,6 @@ public class GridFSUtils {
 	}
 
 	/**
-	 * 文件重命名
-	 *
-	 * @param bucket     GridFS Bucket对象
-	 * @param originName 原始文件名（不带扩展名）
-	 * @param newName    新文件名（不带扩展名）
-	 */
-	public static void renameFile(GridFSBucket bucket, String originName, String newName) {
-		GridFSFile file = findFileByName(bucket, originName);
-		if (file == null) {
-			return;
-		}
-		bucket.rename(file.getObjectId(), newName);
-	}
-
-	/**
 	 * 根据文件名查询文件对象（不带扩展名）
 	 *
 	 * @param bucket   GridFS Bucket对象

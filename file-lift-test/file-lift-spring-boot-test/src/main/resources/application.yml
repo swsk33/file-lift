@@ -17,13 +17,13 @@ io:
       file-lift:
         core:
           storage-method: "filesystem"
-          allowed-formats:
-            - "jpg"
-            - "jpeg"
-            - "png"
+          #          allowed-formats:
+          #            - "jpg"
+          #            - "jpeg"
+          #            - "png"
           size-limit: 10240
           override: true
           auto-rename: true
-          auto-rename-format: "snow_flake"
+          auto-rename-format: "time"
         filesystem:
           save-folder: "avatar"

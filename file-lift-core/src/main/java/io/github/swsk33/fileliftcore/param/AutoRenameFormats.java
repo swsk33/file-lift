@@ -20,4 +20,9 @@ public class AutoRenameFormats {
 	 */
 	public static final String SNOW_FLAKE = "snow_flake";
 
+	/**
+	 * 基于时间的命名
+	 */
+	public static final String TIME = "time";
+
 }

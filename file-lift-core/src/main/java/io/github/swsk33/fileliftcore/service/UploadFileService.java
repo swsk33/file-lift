@@ -15,7 +15,7 @@ public interface UploadFileService {
 	 * 上传文件并保存
 	 *
 	 * @param uploadFile 上传的文件对象
-	 * @return 文件结果，结果中不包含文件内容数据（UploadFile对象中文件流为空）
+	 * @return 文件结果，包含上传的文件信息
 	 */
 	FileResult<UploadFile> upload(MultipartFile uploadFile);
 
@@ -28,19 +28,10 @@ public interface UploadFileService {
 	FileResult<Void> delete(String filename);
 
 	/**
-	 * 对一个已上传的文件重命名
-	 *
-	 * @param originName 待重命名的文件名
-	 * @param newName    新的文件名
-	 * @return 文件结果
-	 */
-	FileResult<Void> rename(String originName, String newName);
-
-	/**
 	 * 查找文件并获取，不使用扩展名
 	 *
 	 * @param filename 文件名（不带扩展名）
-	 * @return 文件结果
+	 * @return 文件结果，包含对应的文件信息
 	 */
 	FileResult<UploadFile> findByMainName(String filename);
 
@@ -49,7 +40,7 @@ public interface UploadFileService {
 	 * 在已知文件名及其扩展名的情况下推荐使用本方法直接获取到文件，在文件系统储存时使用该方法可以避免查找文件的性能消耗
 	 *
 	 * @param fullName 文件全名（需要包含扩展名）
-	 * @return 文件结果
+	 * @return 文件结果，包含对应的文件信息
 	 */
 	FileResult<UploadFile> findByFullName(String fullName);
 

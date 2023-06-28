@@ -4,6 +4,7 @@ import io.github.swsk33.fileliftcore.param.AutoRenameFormats;
 import io.github.swsk33.fileliftcore.strategy.FileNameStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.SimpleUUIDFileNameStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.SnowflakeFileNameStrategy;
+import io.github.swsk33.fileliftcore.strategy.impl.TimeBasedFileNameStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.UUIDFileNameStrategy;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class FileNameStrategyContext {
 		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.UUID, new UUIDFileNameStrategy());
 		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.SIMPLE_UUID, new SimpleUUIDFileNameStrategy());
 		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.SNOW_FLAKE, new SnowflakeFileNameStrategy());
+		FILE_NAME_STRATEGY_MAP.put(AutoRenameFormats.TIME, new TimeBasedFileNameStrategy());
 	}
 
 	/**

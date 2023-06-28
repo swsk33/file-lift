@@ -21,8 +21,13 @@ public class MongoConfig extends FileConfig {
 	 * @return 唯一单例
 	 */
 	public static MongoConfig getInstance() {
+		// 双检锁延迟初始化
 		if (INSTANCE == null) {
-			INSTANCE = new MongoConfig();
+			synchronized (MongoConfig.class) {
+				if (INSTANCE == null) {
+					INSTANCE = new MongoConfig();
+				}
+			}
 		}
 		return (MongoConfig) INSTANCE;
 	}

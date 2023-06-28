@@ -27,12 +27,7 @@ public class FileUploadAPI {
 		return uploadFileService.delete(filename);
 	}
 
-	@PutMapping("/rename/origin/{origin}/new/{newName}")
-	public FileResult<Void> rename(@PathVariable String origin, @PathVariable String newName) {
-		return uploadFileService.rename(origin, newName);
-	}
-
-	@GetMapping("/get/{filename}")
+	@GetMapping("/find/{filename}")
 	public FileResult<UploadFile> findByName(@PathVariable String filename) {
 		return uploadFileService.findByMainName(filename);
 	}

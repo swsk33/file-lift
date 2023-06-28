@@ -7,6 +7,7 @@ import io.github.swsk33.fileliftcore.strategy.impl.FileSystemProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.MongoDBFileProcessStrategy;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,18 +77,7 @@ public class FileProcessStrategyContext {
 	public static void deleteFile(String storageMethod, String filename) {
 		getStrategy(storageMethod).deleteFile(filename);
 	}
-
-	/**
-	 * 重命名文件
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param originName    原始文件名（不带扩展名）
-	 * @param newName       新的文件名（不带扩展名）
-	 */
-	public static void renameFile(String storageMethod, String originName, String newName) {
-		getStrategy(storageMethod).renameFile(originName, newName);
-	}
-
+	
 	/**
 	 * 根据文件名查找文件，不使用扩展名
 	 *
@@ -119,6 +109,28 @@ public class FileProcessStrategyContext {
 	 */
 	public static boolean fileExists(String storageMethod, String fullName) {
 		return getStrategy(storageMethod).fileExists(fullName);
+	}
+
+	/**
+	 * 根据文件名下载文件，不使用扩展名
+	 *
+	 * @param storageMethod 文件储存方式
+	 * @param filename      文件名（不带扩展名）
+	 * @return 文件流对象，不存在返回null
+	 */
+	public static InputStream downloadFileByMainName(String storageMethod, String filename) {
+		return getStrategy(storageMethod).downloadFileByMainName(filename);
+	}
+
+	/**
+	 * 根据完整文件名直接下载文件
+	 *
+	 * @param storageMethod 文件储存方式
+	 * @param fullName      文件名（需要包含扩展名）
+	 * @return 文件流对象，不存在返回null
+	 */
+	public static InputStream downloadFileByFullName(String storageMethod, String fullName) {
+		return getStrategy(storageMethod).downloadFileByFullName(fullName);
 	}
 
 }
