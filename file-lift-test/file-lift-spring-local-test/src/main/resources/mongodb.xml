@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- MongoDB GridFS储存方案的配置 -->
+	<!-- 定义配置Bean -->
+	<bean id="mongoConfig" class="io.github.swsk33.fileliftcore.model.config.MongoConfig" factory-method="getInstance">
+		<!-- 配置对应的属性值 -->
+		<property name="storageMethod" value="filesystem"/>
+		<property name="sizeLimit" value="10240"/>
+		<property name="host" value="127.0.0.1"/>
+		<property name="port" value="27017"/>
+		<property name="database" value="testdb"/>
+	</bean>
+
+	<!-- 定义文件上传服务类Bean -->
+	<bean id="uploadFileService" class="io.github.swsk33.fileliftcore.service.impl.UploadFileServiceImpl">
+		<property name="config" ref="mongoConfig"/>
+	</bean>
+</beans>

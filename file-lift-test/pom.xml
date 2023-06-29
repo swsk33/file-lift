@@ -13,11 +13,13 @@
 	<description>FileLift测试模块</description>
 
 	<properties>
+		<spring.test.version>6.0.10</spring.test.version>
 		<spring.boot.test.version>3.1.1</spring.boot.test.version>
 	</properties>
 
 	<modules>
 		<module>file-lift-spring-boot-test</module>
+		<module>file-lift-spring-local-test</module>
 	</modules>
 
 	<!-- 管理测试项目中的依赖版本 -->
@@ -35,6 +37,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-mongodb</artifactId>
 				<version>${spring.boot.test.version}</version>
+			</dependency>
+
+			<!-- Spring框架 -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.test.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
