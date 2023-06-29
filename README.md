@@ -94,6 +94,8 @@ io:
           save-folder: "avatar"
 ```
 
+这里使用的是`YAML`格式的配置，使用`properties`同理。
+
 ### (3) 编写API
 
 现在，写一个`RestController`调用文件上传服务即可：

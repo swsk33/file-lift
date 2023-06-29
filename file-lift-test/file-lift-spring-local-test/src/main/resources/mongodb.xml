@@ -4,11 +4,31 @@
 	<!-- 定义配置Bean -->
 	<bean id="mongoConfig" class="io.github.swsk33.fileliftcore.model.config.MongoConfig" factory-method="getInstance">
 		<!-- 配置对应的属性值 -->
-		<property name="storageMethod" value="filesystem"/>
+		<!-- 使用MongoDB GridFS储存方案 -->
+		<property name="storageMethod" value="mongodb"/>
+		<!-- 表示允许jpg、png和无扩展名文件上传 -->
+		<property name="allowedFormats">
+			<array>
+				<value>jpg</value>
+				<value>png</value>
+				<value>?</value>
+			</array>
+		</property>
+		<!-- 上传文件最大限制为10240KB，即10MB -->
 		<property name="sizeLimit" value="10240"/>
+		<!-- 不允许同名覆盖 -->
+		<property name="override" value="false"/>
+		<!-- 开启自动重命名功能 -->
+		<property name="autoRename" value="true"/>
+		<!-- 使用时间字符串对文件进行自动命名 -->
+		<property name="autoRenameFormat" value="time"/>
+		<!-- MongoDB相关配置 -->
 		<property name="host" value="127.0.0.1"/>
 		<property name="port" value="27017"/>
 		<property name="database" value="testdb"/>
+		<property name="username" value="user"/>
+		<property name="password" value="pwd"/>
+		<property name="authDatabase" value="admin"/>
 	</bean>
 
 	<!-- 定义文件上传服务类Bean -->

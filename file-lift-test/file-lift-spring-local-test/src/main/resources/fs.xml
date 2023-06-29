@@ -4,9 +4,26 @@
 	<!-- 定义配置Bean -->
 	<bean id="fileSystemConfig" class="io.github.swsk33.fileliftcore.model.config.FileSystemConfig" factory-method="getInstance">
 		<!-- 配置对应的属性值 -->
+		<!-- 使用本地文件系统储存方案 -->
 		<property name="storageMethod" value="filesystem"/>
-		<property name="saveFolder" value="avatar"/>
+		<!-- 表示允许jpg、png和无扩展名文件上传 -->
+		<property name="allowedFormats">
+			<array>
+				<value>jpg</value>
+				<value>png</value>
+				<value>?</value>
+			</array>
+		</property>
+		<!-- 上传文件最大限制为10240KB，即10MB -->
 		<property name="sizeLimit" value="10240"/>
+		<!-- 不允许同名覆盖 -->
+		<property name="override" value="false"/>
+		<!-- 开启自动重命名功能 -->
+		<property name="autoRename" value="true"/>
+		<!-- 使用时间字符串对文件进行自动命名 -->
+		<property name="autoRenameFormat" value="time"/>
+		<!-- 表示上传的文件保存到程序运行目录下的avatar文件夹中 -->
+		<property name="saveFolder" value="avatar"/>
 	</bean>
 
 	<!-- 定义文件上传服务类Bean -->

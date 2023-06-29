@@ -23,7 +23,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- File Lift核心 -->
+		<!-- FileLift核心 -->
 		<dependency>
 			<groupId>io.github.swsk33</groupId>
 			<artifactId>file-lift-core</artifactId>

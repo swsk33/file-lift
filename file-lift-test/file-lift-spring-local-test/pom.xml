@@ -15,6 +15,12 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 
+		<!-- MongoDB -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+		</dependency>
+
 		<!-- FileLift核心 -->
 		<dependency>
 			<groupId>io.github.swsk33</groupId>
