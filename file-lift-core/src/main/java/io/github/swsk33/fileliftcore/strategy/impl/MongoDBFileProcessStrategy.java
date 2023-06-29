@@ -1,7 +1,6 @@
 package io.github.swsk33.fileliftcore.strategy.impl;
 
 import cn.hutool.core.io.file.FileNameUtil;
-import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import io.github.swsk33.fileliftcore.config.MongoClientConfig;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
@@ -13,35 +12,10 @@ import io.github.swsk33.fileliftcore.util.GridFSUtils;
 import org.bson.types.ObjectId;
 import org.springframework.web.multipart.MultipartFile;
 
-import static io.github.swsk33.fileliftcore.util.GridFSUtils.findFileByName;
-import static io.github.swsk33.fileliftcore.util.GridFSUtils.uploadFile;
-
 /**
  * 基于MongoDB GridFS的文件保存策略
  */
 public class MongoDBFileProcessStrategy implements FileProcessStrategy {
-
-	/**
-	 * GridFS桶对象
-	 */
-	private volatile GridFSBucket bucket;
-
-	/**
-	 * 获取GridFS桶对象
-	 *
-	 * @return GridFS桶对象
-	 */
-	private GridFSBucket getBucket() {
-		// 使用双检锁延迟初始化对象
-		if (bucket == null) {
-			synchronized (MongoDBFileProcessStrategy.class) {
-				if (bucket == null) {
-					bucket = MongoClientConfig.getBucket();
-				}
-			}
-		}
-		return bucket;
-	}
 
 	@Override
 	public UploadFile saveFile(MultipartFile file, String saveName) {
@@ -50,12 +24,12 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 		if (!FileConfig.getInstance().isAutoRename() && FileConfig.getInstance().isOverride()) {
 			MongoFile getFile = (MongoFile) findFileByMainName(saveName);
 			if (getFile != null) {
-				bucket.delete(getFile.getId());
+				MongoClientConfig.getBucket().delete(getFile.getId());
 			}
 		}
 		ObjectId id;
 		try {
-			id = uploadFile(getBucket(), file.getInputStream(), saveName, formatName);
+			id = GridFSUtils.uploadFile(file.getInputStream(), saveName, formatName);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -69,35 +43,33 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 
 	@Override
 	public void deleteFile(String filename) {
-		if (!GridFSUtils.fileExists(getBucket(), filename)) {
+		if (!GridFSUtils.fileExists(filename)) {
 			return;
 		}
-		GridFSUtils.deleteFile(getBucket(), filename);
+		GridFSUtils.deleteFile(filename);
 	}
 
 	@Override
 	public UploadFile findFileByMainName(String filename) {
-		GridFSFile getFile = findFileByName(getBucket(), filename);
+		GridFSFile getFile = GridFSUtils.findFileByMainName(filename);
 		if (getFile == null) {
 			return null;
 		}
-		MongoFile result = new MongoFile();
-		result.setName(filename);
-		if (getFile.getMetadata() != null) {
-			result.setFormat(getFile.getMetadata().get("type").toString());
-		}
-		result.setId(getFile.getObjectId());
-		return result;
+		return MongoFile.createMongoFile(getFile);
 	}
 
 	@Override
 	public UploadFile findFileByFullName(String fullName) {
-		return findFileByMainName(FileNameUtil.mainName(fullName));
+		GridFSFile getFile = GridFSUtils.findFileByFullName(fullName);
+		if (getFile == null) {
+			return null;
+		}
+		return MongoFile.createMongoFile(getFile);
 	}
 
 	@Override
 	public boolean fileExists(String fullName) {
-		return GridFSUtils.fileExists(getBucket(), FileNameUtil.mainName(fullName));
+		return GridFSUtils.fileExists(FileNameUtil.mainName(fullName));
 	}
 
 	@Override

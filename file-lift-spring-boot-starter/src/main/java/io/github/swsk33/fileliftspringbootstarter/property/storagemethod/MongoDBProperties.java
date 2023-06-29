@@ -20,7 +20,7 @@ public class MongoDBProperties {
 	/**
 	 * MongoDB数据库端口
 	 */
-	private int port;
+	private int port = 27017;
 
 	/**
 	 * MongoDB数据库的默认库名
@@ -40,7 +40,7 @@ public class MongoDBProperties {
 	/**
 	 * MongoDB用户认证数据库
 	 */
-	private String authenticationDatabase;
+	private String authenticationDatabase = "admin";
 
 	/**
 	 * 传入配置对象，将这个类中的获取到的配置值设定到配置对象中去

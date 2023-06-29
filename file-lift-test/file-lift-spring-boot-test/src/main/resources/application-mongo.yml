@@ -8,7 +8,11 @@ io:
           size-limit: 10240
           override: true
           auto-rename: true
-          auto-rename-format: "time"
+          auto-rename-format: time
+          allowed-formats:
+            - "jpg"
+            - "png"
+            - "?"
         filesystem:
           save-folder: "avatar"
 

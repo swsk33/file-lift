@@ -32,7 +32,7 @@ public class FileFormatValidator extends FileValidator {
 			return passToNext(file);
 		}
 		// 否则，校验不通过
-		return FileValidateResult.resultFailed("不被允许的文件格式！允许上传的文件格式为：" + ArrayUtil.join(allowFormats, ", "));
+		return FileValidateResult.resultFailed("不被允许的文件格式！允许上传的文件格式为：" + ArrayUtil.join(allowFormats, ", ").replace("?", "无扩展名"));
 	}
 
 }

@@ -9,5 +9,9 @@ io:
           override: true
           auto-rename: true
           auto-rename-format: "time"
+          allowed-formats:
+            - "jpg"
+            - "png"
+            - "?"
         filesystem:
           save-folder: "avatar"

@@ -42,11 +42,17 @@ public class FileProcessStrategyContext {
 	 */
 	private static FileProcessStrategy getStrategy(String storageMethod) {
 		// 如果该文件储存方式位于储存方式常量列表中，但是不在策略容器中，说明还未进行初始化
+		// 使用双检锁进行初始化
 		if (FileStorageMethods.contains(storageMethod) && !FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
-			try {
-				FILE_PROCESS_STRATEGY_MAP.put(storageMethod, (FileProcessStrategy) FILE_STORAGE_METHOD_CLASS_MAP.get(storageMethod).getConstructor().newInstance());
-			} catch (Exception e) {
-				e.printStackTrace();
+			synchronized (FileProcessStrategyContext.class) {
+				if (!FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
+					try {
+						// 反射构建策略实例
+						FILE_PROCESS_STRATEGY_MAP.put(storageMethod, (FileProcessStrategy) FILE_STORAGE_METHOD_CLASS_MAP.get(storageMethod).getConstructor().newInstance());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		// 否则，就是传入了不存在的文件储存方式，按照默认值执行

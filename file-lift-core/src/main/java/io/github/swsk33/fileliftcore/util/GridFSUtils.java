@@ -1,10 +1,13 @@
 package io.github.swsk33.fileliftcore.util;
 
+import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.util.StrUtil;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.gridfs.model.GridFSUploadOptions;
 import com.mongodb.client.model.Filters;
+import io.github.swsk33.fileliftcore.config.MongoClientConfig;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -18,46 +21,83 @@ import java.io.InputStream;
 public class GridFSUtils {
 
 	/**
+	 * GridFS桶对象
+	 */
+	private static GridFSBucket bucket;
+
+	/**
+	 * 获得桶对象
+	 *
+	 * @return GridFS桶对象
+	 */
+	private static GridFSBucket getBucket() {
+		if (bucket == null) {
+			bucket = MongoClientConfig.getBucket();
+		}
+		return bucket;
+	}
+
+	/**
 	 * 上传文件至MongoDB
 	 *
-	 * @param bucket          GridFS Bucket对象
 	 * @param fileInputStream 文件输入流对象
 	 * @param filename        上传后的文件名（存到MongoDB后的文件名，不带扩展名）
 	 * @param type            文件原本的扩展名，不带.
 	 * @return 上传文件后的文件id
 	 */
-	public static ObjectId uploadFile(GridFSBucket bucket, InputStream fileInputStream, String filename, String type) throws IOException {
+	public static ObjectId uploadFile(InputStream fileInputStream, String filename, String type) throws IOException {
 		GridFSUploadOptions options = new GridFSUploadOptions();
 		options.chunkSizeBytes(fileInputStream.available());
 		options.metadata(new Document("type", type));
-		return bucket.uploadFromStream(filename, fileInputStream, options);
+		return getBucket().uploadFromStream(filename, fileInputStream, options);
 	}
 
 	/**
 	 * 删除文件
 	 *
-	 * @param bucket   GridFS Bucket对象
 	 * @param filename 要删除的文件名（不带扩展名）
 	 */
-	public static void deleteFile(GridFSBucket bucket, String filename) {
-		GridFSFile file = findFileByName(bucket, filename);
+	public static void deleteFile(String filename) {
+		GridFSFile file = findFileByMainName(filename);
 		if (file == null) {
 			return;
 		}
-		bucket.delete(file.getObjectId());
+		getBucket().delete(file.getObjectId());
 	}
 
 	/**
 	 * 根据文件名查询文件对象（不带扩展名）
 	 *
-	 * @param bucket   GridFS Bucket对象
 	 * @param filename 文件名（不带扩展名）
 	 * @return 文件对象，若文件不存在则为null
 	 */
-	public static GridFSFile findFileByName(GridFSBucket bucket, String filename) {
+	public static GridFSFile findFileByMainName(String filename) {
 		GridFSFile result;
 		Bson query = Filters.eq("filename", filename);
-		try (MongoCursor<GridFSFile> cursor = bucket.find(query).cursor()) {
+		try (MongoCursor<GridFSFile> cursor = getBucket().find(query).cursor()) {
+			if (!cursor.hasNext()) {
+				return null;
+			}
+			result = cursor.next();
+		}
+		return result;
+	}
+
+	/**
+	 * 根据完整文件名查询文件对象
+	 *
+	 * @param fullName 完整文件名（需要带扩展名）
+	 * @return 文件对象，若文件不存在则为null
+	 */
+	public static GridFSFile findFileByFullName(String fullName) {
+		String mainName = FileNameUtil.mainName(fullName);
+		String formatName = FileNameUtil.extName(fullName);
+		if (StrUtil.isEmpty(formatName)) {
+			return findFileByMainName(mainName);
+		}
+		GridFSFile result;
+		Bson query = Filters.and(Filters.eq("filename", mainName), Filters.eq("metadata.type", formatName));
+		try (MongoCursor<GridFSFile> cursor = getBucket().find(query).cursor()) {
 			if (!cursor.hasNext()) {
 				return null;
 			}
@@ -69,12 +109,11 @@ public class GridFSUtils {
 	/**
 	 * 检测文件是否存在于MongoDB中
 	 *
-	 * @param bucket   GridFS Bucket对象
 	 * @param filename 文件名（不带扩展名）
 	 * @return 文件是否存在
 	 */
-	public static boolean fileExists(GridFSBucket bucket, String filename) {
-		return findFileByName(bucket, filename) != null;
+	public static boolean fileExists(String filename) {
+		return findFileByMainName(filename) != null;
 	}
 
 }

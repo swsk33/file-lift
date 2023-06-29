@@ -15,7 +15,7 @@ public class CoreProperties {
 
 	/**
 	 * 设定文件的储存方式，可以配置下列值
-	 * 配置值参考：io.github.swsk33.fileliftcore.param.FileStorage中常量值
+	 * 配置值参考：io.github.swsk33.fileliftcore.param.FileStorageMethods中常量值
 	 * 若未配置或者配置为其它错误的值，则按照默认的filesystem方式
 	 */
 	private String storageMethod = FileStorageMethods.FILE;
@@ -47,7 +47,7 @@ public class CoreProperties {
 	 * <strong>仅在autoRename为true时生效！</strong>
 	 * <br>
 	 * 自动命名的命名格式
-	 * 配置值参考io.github.swsk33.fileliftcore.param.AutoRenameFormat中的常量值
+	 * 配置值参考io.github.swsk33.fileliftcore.param.AutoRenameFormats中的常量值
 	 * 若未配置或者配置为其它错误值，则按照默认的simple_uuid方式
 	 */
 	private String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
