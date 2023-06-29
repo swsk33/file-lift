@@ -1,7 +1,7 @@
 # FileLift - 文件上传管理框架
 
 ## 1，介绍
-file-lift是一款简单的Java文件上传管理框架，其中封装了常用的关于文件上传、下载以及上传的文件管理的接口，并且支持多种上传文件的储存方式，开箱即用。
+FileLift是一款简单的Java文件上传管理框架，其中封装了常用的关于文件上传、下载以及上传的文件管理的接口，并且支持多种上传文件的储存方式，开箱即用。
 
 ### (1) 项目背景
 
@@ -258,4 +258,4 @@ public class UploadTestAPI {
 
 - 详细文档：[传送门](./file-lift-doc/主要文档.md)
 - 配置参考：[传送门](./file-lift-doc/配置选项.md)
-- API文档：传送门
+- API文档：[传送门](https://apidoc.gitee.com/swsk33/file-lift/)
