@@ -31,6 +31,7 @@ public class UploadTestAPI {
 	 */
 	@PostMapping("/upload")
 	public FileResult<UploadFile> upload(@RequestParam("file") MultipartFile file) {
+		// 调用服务对象的upload方法即可完成上传文件，返回这个文件的相关信息
 		return uploadFileService.upload(file);
 	}
 
@@ -42,6 +43,7 @@ public class UploadTestAPI {
 	 */
 	@DeleteMapping("/delete/{filename}")
 	public FileResult<Void> delete(@PathVariable String filename) {
+		// 调用服务对象的delete方法即可删除文件，返回删除结果
 		return uploadFileService.delete(filename);
 	}
 
@@ -52,7 +54,8 @@ public class UploadTestAPI {
 	 * @return 对应文件信息结果
 	 */
 	@GetMapping("/find/{filename}")
-	public FileResult<UploadFile> findByName(@PathVariable String filename) {
+	public FileResult<UploadFile> findByMainName(@PathVariable String filename) {
+		// 调用服务对象的findByMainName方法即可查找一个已上传的文件信息，返回这个文件的相关信息
 		return uploadFileService.findByMainName(filename);
 	}
 
@@ -64,6 +67,9 @@ public class UploadTestAPI {
 	 */
 	@GetMapping("/get/{fullName}")
 	public FileResult<UploadFile> getByFullName(@PathVariable String fullName) {
+		// 调用服务对象的findByFullName即可查找一个已上传的文件信息，返回这个文件的相关信息
+		// 与findByMainName不同的是，findByMainName方法不需要文件扩展名即可查找文件，而该方法需要
+		// 其它方法类似
 		return uploadFileService.findByFullName(fullName);
 	}
 
@@ -75,7 +81,7 @@ public class UploadTestAPI {
 	 */
 	@GetMapping("/download/{filename}")
 	public ResponseEntity<byte[]> downloadByName(@PathVariable String filename) {
-		// 包含文件二进制信息的结果
+		// 调用服务对象的downloadFileByMainName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByMainName(filename);
 		if (!result.isSuccess()) {
 			return ResponseEntity.notFound().build();
@@ -96,7 +102,7 @@ public class UploadTestAPI {
 	 */
 	@GetMapping("/download-full/{fullName}")
 	public ResponseEntity<byte[]> downloadByFullName(@PathVariable String fullName) {
-		// 包含文件二进制信息的结果
+		// 调用服务对象的downloadFileByFullName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByFullName(fullName);
 		if (!result.isSuccess()) {
 			return ResponseEntity.notFound().build();

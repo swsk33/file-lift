@@ -6,7 +6,7 @@ io:
         core:
           storage-method: "filesystem"
           size-limit: 10240
-          override: true
+          override: false
           auto-rename: true
           auto-rename-format: "time"
           allowed-formats:

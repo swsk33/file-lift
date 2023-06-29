@@ -6,9 +6,9 @@ io:
         core:
           storage-method: "mongodb"
           size-limit: 10240
-          override: true
+          override: false
           auto-rename: true
-          auto-rename-format: time
+          auto-rename-format: "time"
           allowed-formats:
             - "jpg"
             - "png"

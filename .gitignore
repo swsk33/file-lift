@@ -13,5 +13,9 @@
 /**/.idea/
 /**/*.iml
 
+# draw.io
+/**/.$*.bkp
+/**/.$*.dtmp
+
 # 测试上传的文件
 /file-lift-test/**/avatar/
