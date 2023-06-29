@@ -10,6 +10,7 @@ import io.github.swsk33.fileliftcore.service.UploadFileService;
 import io.github.swsk33.fileliftcore.strategy.context.FileNameStrategyContext;
 import io.github.swsk33.fileliftcore.strategy.context.FileProcessStrategyContext;
 import io.github.swsk33.fileliftcore.validator.context.FileValidatorContext;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,9 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadFileServiceImpl implements UploadFileService {
 
 	/**
-	 * 全局配置
+	 * 全局配置（需要注入）
 	 */
-	private final FileConfig config = FileConfig.getInstance();
+	@Setter
+	private FileConfig config;
 
 	@Override
 	public FileResult<UploadFile> upload(MultipartFile uploadFile) {

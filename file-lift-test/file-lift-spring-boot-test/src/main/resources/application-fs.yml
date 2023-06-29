@@ -1,0 +1,13 @@
+# 适用于文件系统储存方案的配置文件
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          storage-method: "filesystem"
+          size-limit: 10240
+          override: true
+          auto-rename: true
+          auto-rename-format: "time"
+        filesystem:
+          save-folder: "avatar"

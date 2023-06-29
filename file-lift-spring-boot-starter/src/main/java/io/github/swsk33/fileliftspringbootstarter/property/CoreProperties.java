@@ -1,5 +1,6 @@
 package io.github.swsk33.fileliftspringbootstarter.property;
 
+import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.param.AutoRenameFormats;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import lombok.Data;
@@ -50,5 +51,19 @@ public class CoreProperties {
 	 * 若未配置或者配置为其它错误值，则按照默认的simple_uuid方式
 	 */
 	private String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
+
+	/**
+	 * 传入配置对象，将这个类中的获取到的配置值设定到配置对象中去
+	 *
+	 * @param config 配置对象
+	 */
+	public void setConfigValues(FileConfig config) {
+		config.setStorageMethod(storageMethod);
+		config.setAllowedFormats(allowedFormats);
+		config.setSizeLimit(sizeLimit);
+		config.setOverride(override);
+		config.setAutoRename(autoRename);
+		config.setAutoRenameFormat(autoRenameFormat);
+	}
 
 }

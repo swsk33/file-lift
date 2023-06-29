@@ -1,9 +1,10 @@
-package io.github.swsk33.fileliftspringbootstarter.autoconfigure;
+package io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod;
 
 import io.github.swsk33.fileliftcore.model.config.FileSystemConfig;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
+import io.github.swsk33.fileliftspringbootstarter.autoconfigure.ConfigCheckAutoConfiguration;
 import io.github.swsk33.fileliftspringbootstarter.property.CoreProperties;
-import io.github.swsk33.fileliftspringbootstarter.property.FileSystemProperties;
+import io.github.swsk33.fileliftspringbootstarter.property.storagemethod.FileSystemProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,20 +19,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties({CoreProperties.class, FileSystemProperties.class})
 @ConditionalOnProperty(prefix = "io.github.swsk33.file-lift.core", name = "storage-method", havingValue = FileStorageMethods.FILE, matchIfMissing = true)
-@AutoConfigureBefore(UploadFileServiceAutoConfiguration.class)
+@AutoConfigureBefore(ConfigCheckAutoConfiguration.class)
 public class FileSystemAutoConfiguration {
 
 	@Bean
-	public FileSystemConfig initConfig(CoreProperties coreProperties, FileSystemProperties fileSystemProperties) {
+	public FileSystemConfig initFileSystemConfig(CoreProperties coreProperties, FileSystemProperties fileSystemProperties) {
 		log.info("使用文件系统本地储存方案");
 		FileSystemConfig config = FileSystemConfig.getInstance();
-		config.setStorageMethod(coreProperties.getStorageMethod());
-		config.setAllowedFormats(coreProperties.getAllowedFormats());
-		config.setSizeLimit(coreProperties.getSizeLimit());
-		config.setAutoRename(coreProperties.isAutoRename());
-		config.setOverride(coreProperties.isOverride());
-		config.setAutoRenameFormat(coreProperties.getAutoRenameFormat());
-		config.setSaveFolder(fileSystemProperties.getSaveFolder());
+		coreProperties.setConfigValues(config);
+		fileSystemProperties.setConfigValues(config);
 		return config;
 	}
 

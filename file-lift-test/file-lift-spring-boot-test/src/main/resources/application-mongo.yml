@@ -1,0 +1,21 @@
+# 适用于MongoDB GridFS储存方案的配置文件
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          storage-method: "mongodb"
+          size-limit: 10240
+          override: true
+          auto-rename: true
+          auto-rename-format: "time"
+        filesystem:
+          save-folder: "avatar"
+
+# 配置MongoDB数据源
+spring:
+  data:
+    mongodb:
+      host: "127.0.0.1"
+      port: 27017
+      database: "testdb"

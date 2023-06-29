@@ -1,29 +1,12 @@
-# 服务端配置
-server:
-  port: 8801
-  tomcat:
-    max-http-form-post-size: 12MB
-
 spring:
+  profiles:
+    active: "mongo"
   servlet:
     multipart:
       max-file-size: 12MB
       max-request-size: 12MB
 
-# FileLift文件上传配置
-io:
-  github:
-    swsk33:
-      file-lift:
-        core:
-          storage-method: "filesystem"
-          #          allowed-formats:
-          #            - "jpg"
-          #            - "jpeg"
-          #            - "png"
-          size-limit: 10240
-          override: true
-          auto-rename: true
-          auto-rename-format: "time"
-        filesystem:
-          save-folder: "avatar"
+server:
+  port: 8801
+  tomcat:
+    max-http-form-post-size: 12MB

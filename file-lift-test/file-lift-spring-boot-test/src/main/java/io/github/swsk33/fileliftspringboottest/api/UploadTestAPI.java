@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api/file")
-public class FileSystemTestAPI {
+public class UploadTestAPI {
 
 	@Autowired
 	private UploadFileService uploadFileService;
@@ -52,7 +52,7 @@ public class FileSystemTestAPI {
 				// 获取结果中文件的content-type信息并设定
 				.contentType(MediaType.parseMediaType(result.getData().getContentType()))
 				// 放入文件内容至响应体以下载
-				.body(result.getData().getContentByte());
+				.body(result.getData().getByteAndClose());
 	}
 
 	@GetMapping("/download-full/{fullName}")
@@ -67,7 +67,7 @@ public class FileSystemTestAPI {
 				// 获取结果中文件的content-type信息并设定
 				.contentType(MediaType.parseMediaType(result.getData().getContentType()))
 				// 放入文件内容至响应体以下载
-				.body(result.getData().getContentByte());
+				.body(result.getData().getByteAndClose());
 	}
 
 }

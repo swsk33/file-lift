@@ -16,18 +16,13 @@ public abstract class FileConfig {
 	protected static volatile FileConfig INSTANCE;
 
 	/**
-	 * 获取配置单例（双检锁）
+	 * 获取配置单例
 	 *
-	 * @return 配置单例
+	 * @return 配置单例，若单例未成功初始化，则返回null
 	 */
 	public static FileConfig getInstance() {
-		// 如果调用该类的单例为空，说明很可能storageMethod未正确配置而未触发Spring Boot自动配置，此时默认初始化文件系统储存方案的配置类单例
 		if (INSTANCE == null) {
-			synchronized (FileConfig.class) {
-				if (INSTANCE == null) {
-					INSTANCE = FileSystemConfig.getInstance();
-				}
-			}
+			throw new RuntimeException("配置未正确初始化！请先根据储存方式，调用对应子类的getInstance方法并完成配置！");
 		}
 		return INSTANCE;
 	}
