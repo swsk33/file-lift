@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>file-lift-spring-boot-test</artifactId>
 	<version>1.0.0</version>
-	<name>file-lift-spring-boot-test</name>
+	<name>FileLift - Spring Boot Test</name>
 	<description>FileLift-Spring Boot测试</description>
 
 	<dependencies>

@@ -7,6 +7,7 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>file-lift-spring-boot-starter</artifactId>
+	<name>FileLift - Spring Boot Starter</name>
 	<description>FileLift的Spring Boot Starter</description>
 
 	<dependencies>

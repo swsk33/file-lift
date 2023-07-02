@@ -5,7 +5,7 @@
 	<artifactId>file-lift-parent</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
-	<name>FileLift</name>
+	<name>FileLift - TotalParent</name>
 	<description>一款用于文件上传的外部库，其中封装了多种文件上传和管理操作的接口，并且支持使用文件系统或者数据库等多种方式存放文件，经过简单配置即可使用</description>
 	<url>https://github.com/swsk33/file-lift</url>
 
@@ -21,7 +21,7 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.boot.version>3.0.0</spring.boot.version>
+		<spring.boot.starter.version>3.0.0</spring.boot.starter.version>
 	</properties>
 
 	<licenses>
@@ -76,35 +76,35 @@
 			<dependency>
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
-				<version>5.8.16</version>
+				<version>5.8.20</version>
 			</dependency>
 
 			<!-- MongoDB -->
 			<dependency>
 				<groupId>org.mongodb</groupId>
 				<artifactId>mongodb-driver-sync</artifactId>
-				<version>4.10.0</version>
+				<version>4.10.1</version>
 			</dependency>
 
 			<!-- Spring Web -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
-				<version>6.0.6</version>
+				<version>6.0.10</version>
 			</dependency>
 
 			<!-- Spring Boot Starter支持 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.starter.version}</version>
 			</dependency>
 
 			<!-- Spring Boot配置生成器 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-configuration-processor</artifactId>
-				<version>${spring.boot.version}</version>
+				<version>${spring.boot.starter.version}</version>
 			</dependency>
 
 			<!-- FileLift核心 -->

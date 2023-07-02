@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>file-lift-test</artifactId>
 	<packaging>pom</packaging>
+	<name>FileLift - Test Parent</name>
 	<description>FileLift测试模块</description>
 
 	<properties>

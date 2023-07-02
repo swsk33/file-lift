@@ -7,6 +7,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>file-lift-core</artifactId>
+	<name>FileLift - Core</name>
 	<description>FileLift - 核心功能部分</description>
 
 	<dependencies>
