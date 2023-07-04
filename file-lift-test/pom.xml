@@ -26,7 +26,14 @@
 	<!-- 管理测试项目中的依赖版本 -->
 	<dependencyManagement>
 		<dependencies>
-			<!-- Spring Web -->
+			<!-- Spring Boot Starter -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring.boot.test.version}</version>
+			</dependency>
+
+			<!-- Spring Starter Web -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
@@ -45,6 +52,13 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${spring.test.version}</version>
+			</dependency>
+
+			<!-- FileLift Spring Boot Starter -->
+			<dependency>
+				<groupId>io.github.swsk33</groupId>
+				<artifactId>file-lift-spring-boot-starter</artifactId>
+				<version>1.0.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

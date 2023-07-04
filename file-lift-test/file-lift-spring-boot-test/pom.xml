@@ -15,7 +15,6 @@
 		<dependency>
 			<groupId>io.github.swsk33</groupId>
 			<artifactId>file-lift-spring-boot-starter</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -29,13 +28,4 @@
 			<version>${spring.boot.test.version}</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>
