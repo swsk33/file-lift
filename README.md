@@ -1,5 +1,18 @@
 # FileLift - 文件上传管理框架
 
+<p align="center">
+	<a target="_blank" href="https://central.sonatype.com/search?smo=true&q=io.github.swsk33.file-lift">
+		<img src="https://img.shields.io/maven-central/v/io.github.swsk33/file-lift-parent
+" />
+	</a>
+	<a target="_blank" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
+		<img alt="GitHub" src="https://img.shields.io/github/license/swsk33/code-post">
+	</a>
+	<a target="_blank" href="https://www.azul.com/downloads/#downloads-table-zulu">
+		<img alt="Static Badge" src="https://img.shields.io/badge/17%2B-blue?label=JDK">
+	</a>
+</p>
+
 ## 1，介绍
 FileLift是一款简单的Java文件上传管理框架，其中封装了常用的关于文件上传、下载以及上传的文件管理的接口，并且支持多种上传文件的储存方式，开箱即用。
 
