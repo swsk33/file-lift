@@ -9,6 +9,7 @@
 	<artifactId>file-lift-core</artifactId>
 	<name>FileLift - Core</name>
 	<description>FileLift - 核心功能部分</description>
+	<url>https://github.com/swsk33/file-lift</url>
 
 	<dependencies>
 		<!-- Hutool实用类 -->

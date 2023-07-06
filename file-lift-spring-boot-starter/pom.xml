@@ -9,6 +9,7 @@
 	<artifactId>file-lift-spring-boot-starter</artifactId>
 	<name>FileLift - Spring Boot Starter</name>
 	<description>FileLift的Spring Boot Starter</description>
+	<url>https://github.com/swsk33/file-lift</url>
 
 	<dependencies>
 		<!-- Spring Boot Starter支持 -->
