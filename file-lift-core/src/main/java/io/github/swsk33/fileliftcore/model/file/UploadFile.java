@@ -20,6 +20,11 @@ public abstract class UploadFile {
 	private String format;
 
 	/**
+	 * 文件大小（单位：字节）
+	 */
+	private long length;
+
+	/**
 	 * 根据自身对象信息，转换为二进制文件内容信息对象
 	 *
 	 * @return 文件的二进制内容相关信息的对象

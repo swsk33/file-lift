@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.swsk33</groupId>
 	<artifactId>file-lift-parent</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<packaging>pom</packaging>
 	<name>FileLift - Total Parent</name>
 	<description>一款用于文件上传的外部库，其中封装了多种文件上传和管理操作的接口，并且支持使用文件系统或者数据库等多种方式存放文件，经过简单配置即可使用</description>
@@ -17,11 +17,11 @@
 	</modules>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.boot.starter.version>3.0.0</spring.boot.starter.version>
+		<file.lift.version>1.1.0</file.lift.version>
 	</properties>
 
 	<licenses>
@@ -46,25 +46,13 @@
 		</developer>
 	</developers>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-
-		<repository>
-			<id>ossrh</id>
-			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-
 	<!-- 公用依赖 -->
 	<dependencies>
 		<!-- Lombok注解支持 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.28</version>
+			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -76,48 +64,39 @@
 			<dependency>
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
-				<version>5.8.20</version>
+				<version>5.8.26</version>
 			</dependency>
 
 			<!-- MongoDB -->
 			<dependency>
 				<groupId>org.mongodb</groupId>
 				<artifactId>mongodb-driver-sync</artifactId>
-				<version>4.10.1</version>
-			</dependency>
-
-			<!-- Spring Web -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>6.0.10</version>
-			</dependency>
-
-			<!-- Spring Boot Starter支持 -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring.boot.starter.version}</version>
-			</dependency>
-
-			<!-- Spring Boot配置生成器 -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-configuration-processor</artifactId>
-				<version>${spring.boot.starter.version}</version>
+				<version>4.11.1</version>
 			</dependency>
 
 			<!-- FileLift核心 -->
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
 				<artifactId>file-lift-core</artifactId>
-				<version>1.0.0</version>
+				<version>${file.lift.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
 		<plugins>
+			<!-- Sonatype中央仓库发布插件 -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.1.2</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+					<tokenEnabled>true</tokenEnabled>
+				</configuration>
+			</plugin>
+
 			<!-- 源码生成插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -137,7 +116,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.5.0</version>
+				<version>3.6.3</version>
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>

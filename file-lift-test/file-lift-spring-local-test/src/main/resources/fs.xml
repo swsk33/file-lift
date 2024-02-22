@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- 本地文件系统储存方案的配置 -->
-	<!-- 定义配置Bean -->
-	<bean id="fileSystemConfig" class="io.github.swsk33.fileliftcore.model.config.FileSystemConfig" factory-method="getInstance">
+	<!-- 定义核心配置Bean -->
+	<bean id="coreConfig" class="io.github.swsk33.fileliftcore.model.config.FileConfig" factory-method="getInstance">
 		<!-- 配置对应的属性值 -->
 		<!-- 使用本地文件系统储存方案 -->
 		<property name="storageMethod" value="filesystem"/>
@@ -22,12 +22,16 @@
 		<property name="autoRename" value="true"/>
 		<!-- 使用时间字符串对文件进行自动命名 -->
 		<property name="autoRenameFormat" value="time"/>
+	</bean>
+
+	<!-- 文件系统储存方案配置 -->
+	<bean id="fileSystemConfig" class="io.github.swsk33.fileliftcore.model.config.FileSystemConfig" factory-method="getInstance">
 		<!-- 表示上传的文件保存到程序运行目录下的avatar文件夹中 -->
 		<property name="saveFolder" value="avatar"/>
 	</bean>
 
 	<!-- 定义文件上传服务类Bean -->
 	<bean id="uploadFileService" class="io.github.swsk33.fileliftcore.service.impl.UploadFileServiceImpl">
-		<property name="config" ref="fileSystemConfig"/>
+		<property name="config" ref="coreConfig"/>
 	</bean>
 </beans>

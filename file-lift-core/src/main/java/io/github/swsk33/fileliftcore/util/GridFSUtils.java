@@ -12,7 +12,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -45,9 +44,8 @@ public class GridFSUtils {
 	 * @param type            文件原本的扩展名，不带.
 	 * @return 上传文件后的文件id
 	 */
-	public static ObjectId uploadFile(InputStream fileInputStream, String filename, String type) throws IOException {
+	public static ObjectId uploadFile(InputStream fileInputStream, String filename, String type) {
 		GridFSUploadOptions options = new GridFSUploadOptions();
-		options.chunkSizeBytes(fileInputStream.available());
 		options.metadata(new Document("type", type));
 		return getBucket().uploadFromStream(filename, fileInputStream, options);
 	}

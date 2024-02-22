@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- MongoDB GridFS储存方案的配置 -->
-	<!-- 定义配置Bean -->
-	<bean id="mongoConfig" class="io.github.swsk33.fileliftcore.model.config.MongoConfig" factory-method="getInstance">
+	<!-- 定义核心配置Bean -->
+	<bean id="coreConfig" class="io.github.swsk33.fileliftcore.model.config.FileConfig" factory-method="getInstance">
 		<!-- 配置对应的属性值 -->
 		<!-- 使用MongoDB GridFS储存方案 -->
 		<property name="storageMethod" value="mongodb"/>
@@ -22,17 +22,21 @@
 		<property name="autoRename" value="true"/>
 		<!-- 使用时间字符串对文件进行自动命名 -->
 		<property name="autoRenameFormat" value="time"/>
-		<!-- MongoDB相关配置 -->
+	</bean>
+
+	<!-- MongoDB相关配置 -->
+	<bean id="mongoConfig" class="io.github.swsk33.fileliftcore.model.config.MongoConfig" factory-method="getInstance">
 		<property name="host" value="127.0.0.1"/>
 		<property name="port" value="27017"/>
 		<property name="database" value="testdb"/>
 		<property name="username" value="user"/>
 		<property name="password" value="pwd"/>
 		<property name="authDatabase" value="admin"/>
+		<property name="bucketName" value="myfs"/>
 	</bean>
 
 	<!-- 定义文件上传服务类Bean -->
 	<bean id="uploadFileService" class="io.github.swsk33.fileliftcore.service.impl.UploadFileServiceImpl">
-		<property name="config" ref="mongoConfig"/>
+		<property name="config" ref="coreConfig"/>
 	</bean>
 </beans>

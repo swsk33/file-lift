@@ -38,6 +38,7 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 		uploadedFile.setName(saveName);
 		uploadedFile.setFormat(formatName);
 		uploadedFile.setId(id);
+		uploadedFile.setLength(file.getSize());
 		return uploadedFile;
 	}
 

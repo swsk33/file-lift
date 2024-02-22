@@ -4,9 +4,7 @@
 	<parent>
 		<groupId>io.github.swsk33</groupId>
 		<artifactId>file-lift-parent</artifactId>
-		<version>1.0.0</version>
-		<!-- 指定父项目pom.xml位置 -->
-		<relativePath>../pom.xml</relativePath>
+		<version>1.1.0</version>
 	</parent>
 	<artifactId>file-lift-test</artifactId>
 	<packaging>pom</packaging>
@@ -14,51 +12,24 @@
 	<description>FileLift测试模块</description>
 
 	<properties>
-		<spring.test.version>6.0.10</spring.test.version>
-		<spring.boot.test.version>3.1.1</spring.boot.test.version>
+		<spring.test.version>6.1.4</spring.test.version>
+		<spring.boot2.test.version>2.7.12</spring.boot2.test.version>
+		<spring.boot3.test.version>3.2.2</spring.boot3.test.version>
 	</properties>
 
 	<modules>
-		<module>file-lift-spring-boot-test</module>
+		<module>file-lift-spring-boot3-test</module>
 		<module>file-lift-spring-local-test</module>
 	</modules>
 
 	<!-- 管理测试项目中的依赖版本 -->
 	<dependencyManagement>
 		<dependencies>
-			<!-- Spring Boot Starter -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring.boot.test.version}</version>
-			</dependency>
-
-			<!-- Spring Starter Web -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.boot.test.version}</version>
-			</dependency>
-
-			<!-- Spring Data MongoDB -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-data-mongodb</artifactId>
-				<version>${spring.boot.test.version}</version>
-			</dependency>
-
-			<!-- Spring框架 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.test.version}</version>
-			</dependency>
-
 			<!-- FileLift Spring Boot Starter -->
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
 				<artifactId>file-lift-spring-boot-starter</artifactId>
-				<version>1.0.0</version>
+				<version>${file.lift.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

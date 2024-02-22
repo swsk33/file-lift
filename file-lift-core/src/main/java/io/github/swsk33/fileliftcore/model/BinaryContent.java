@@ -1,5 +1,6 @@
 package io.github.swsk33.fileliftcore.model;
 
+import cn.hutool.core.io.IoUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.io.InputStream;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BinaryContent implements AutoCloseable {
+public class BinaryContent {
 
 	/**
 	 * 文件的Content-Type
@@ -26,44 +27,12 @@ public class BinaryContent implements AutoCloseable {
 	private InputStream fileStream;
 
 	/**
-	 * 关闭该二进制内容对象中的文件流以释放资源
-	 */
-	@Override
-	public void close() throws Exception {
-		if (fileStream != null) {
-			fileStream.close();
-		}
-	}
-
-	/**
-	 * 以字节码形式获取该文件的内容，可以返回给前端以下载文件
-	 * 注意，该方法读取完成内容后不会关闭，可以再次读取
-	 *
-	 * @return 文件内容二进制字节内容，获取失败返回null
-	 */
-	public byte[] getByte() {
-		byte[] content = null;
-		try {
-			content = fileStream.readAllBytes();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return content;
-	}
-
-	/**
 	 * 以字节码形式获取该文件的内容，并且在读取完成后关闭该资源
 	 *
 	 * @return 文件内容二进制字节内容，获取失败返回null
 	 */
 	public byte[] getByteAndClose() {
-		byte[] content = null;
-		try (this) {
-			content = getByte();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return content;
+		return IoUtil.readBytes(fileStream);
 	}
 
 }

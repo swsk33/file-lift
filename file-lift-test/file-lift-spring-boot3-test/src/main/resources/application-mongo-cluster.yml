@@ -22,10 +22,8 @@ io:
             - "png"
             - "?"
 
-# 配置MongoDB数据源
+# 配置MongoDB集群数据源
 spring:
   data:
     mongodb:
-      host: "127.0.0.1"
-      port: 27017
-      database: "testdb"
+      uri: "mongodb://swsk33:dev-2333@127.0.0.1:25000,127.0.0.1:25001,127.0.0.1:25002/file_lift_test?authSource=admin"

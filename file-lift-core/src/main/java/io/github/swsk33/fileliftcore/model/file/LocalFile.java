@@ -60,6 +60,7 @@ public class LocalFile extends UploadFile {
 		LocalFile newFile = new LocalFile();
 		newFile.setName(FileNameUtil.mainName(absolutePath));
 		newFile.setFormat(FileNameUtil.extName(absolutePath));
+		newFile.setLength(FileUtil.file(absolutePath).length());
 		newFile.setAbsolutePath(absolutePath);
 		newFile.setRelativePath(getCurrentPath().relativize(Paths.get(absolutePath)).toString());
 		return newFile;

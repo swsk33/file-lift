@@ -30,6 +30,7 @@ public class MongoFile extends UploadFile {
 		mongoFile.setName(file.getFilename());
 		if (file.getMetadata() != null) {
 			mongoFile.setFormat((String) file.getMetadata().get("type"));
+			mongoFile.setLength(file.getLength());
 		}
 		mongoFile.setId(file.getObjectId());
 		return mongoFile;

@@ -114,7 +114,7 @@ io:
 现在，写一个`RestController`调用文件上传服务即可：
 
 ```java
-package io.github.swsk33.fileliftspringboottest.api;
+package io.github.swsk33.fileliftspringboot3test.api;
 
 import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;

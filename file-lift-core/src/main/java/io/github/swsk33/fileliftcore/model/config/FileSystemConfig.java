@@ -6,22 +6,17 @@ import lombok.Data;
  * 适用于文件系统储存的配置（单例）
  */
 @Data
-public class FileSystemConfig extends FileConfig {
+public class FileSystemConfig {
 
 	/**
-	 * 私有化构造器
+	 * 唯一单例
 	 */
-	private FileSystemConfig() {
-
-	}
+	private static volatile FileSystemConfig INSTANCE;
 
 	/**
-	 * 获取唯一的单例
-	 *
-	 * @return 唯一单例
+	 * 获取文件系统方案配置单例
 	 */
 	public static FileSystemConfig getInstance() {
-		// 双检锁延迟初始化
 		if (INSTANCE == null) {
 			synchronized (FileSystemConfig.class) {
 				if (INSTANCE == null) {
@@ -29,7 +24,11 @@ public class FileSystemConfig extends FileConfig {
 				}
 			}
 		}
-		return (FileSystemConfig) INSTANCE;
+		return INSTANCE;
+	}
+
+	private FileSystemConfig() {
+
 	}
 
 	/**

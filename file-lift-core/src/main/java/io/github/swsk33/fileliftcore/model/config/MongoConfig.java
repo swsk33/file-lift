@@ -6,22 +6,17 @@ import lombok.Data;
  * 适用于MongoDB GridFS储存的配置（单例）
  */
 @Data
-public class MongoConfig extends FileConfig {
+public class MongoConfig {
 
 	/**
-	 * 私有化构造器
+	 * 唯一单例
 	 */
-	private MongoConfig() {
-
-	}
+	private static volatile MongoConfig INSTANCE;
 
 	/**
-	 * 获取唯一单例
-	 *
-	 * @return 唯一单例
+	 * 获取文件系统方案配置单例
 	 */
 	public static MongoConfig getInstance() {
-		// 双检锁延迟初始化
 		if (INSTANCE == null) {
 			synchronized (MongoConfig.class) {
 				if (INSTANCE == null) {
@@ -29,17 +24,41 @@ public class MongoConfig extends FileConfig {
 				}
 			}
 		}
-		return (MongoConfig) INSTANCE;
+		return INSTANCE;
+	}
+
+	private MongoConfig() {
+
 	}
 
 	/**
-	 * 数据库地址
+	 * MongoDB连接字符串<br>
+	 * 连接字符串格式：
+	 * <ul>
+	 *     <li>单节点：mongodb://user:password@host:port/database?authSource=authDatabase</li>
+	 *     <li>集群：mongodb://user:password@host1:port1,host2:port2,host3:port3/database?authSource=authDatabase</li>
+	 * </ul>
+	 * 若配置了该连接字符串，则下列其余地址配置将无效：
+	 * <ul>
+	 *     <li>host</li>
+	 *     <li>port</li>
+	 *     <li>username</li>
+	 *     <li>password</li>
+	 *     <li>database</li>
+	 *     <li>authDatabase</li>
+	 * </ul>
 	 */
-	private String host;
+	private String uri;
+
+	/**
+	 * 数据库地址
+	 * 默认为：127.0.0.1
+	 */
+	private String host = "127.0.0.1";
 
 	/**
 	 * 数据库端口
-	 * 默认为27017
+	 * 默认为：27017
 	 */
 	private int port = 27017;
 
@@ -64,5 +83,11 @@ public class MongoConfig extends FileConfig {
 	 * 默认为admin
 	 */
 	private String authDatabase = "admin";
+
+	/**
+	 * 文件存放桶名称
+	 * 默认为：fs
+	 */
+	private String bucketName = "fs";
 
 }

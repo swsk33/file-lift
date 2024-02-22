@@ -1,4 +1,4 @@
-package io.github.swsk33.fileliftspringboottest.api;
+package io.github.swsk33.fileliftspringboot3test.api;
 
 import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
@@ -42,7 +42,7 @@ public class UploadTestAPI {
 	 * @return 执行结果
 	 */
 	@DeleteMapping("/delete/{filename}")
-	public FileResult<Void> delete(@PathVariable String filename) {
+	public FileResult<Void> delete(@PathVariable("filename") String filename) {
 		// 调用服务对象的delete方法即可删除文件，返回删除结果
 		return uploadFileService.delete(filename);
 	}
@@ -54,7 +54,7 @@ public class UploadTestAPI {
 	 * @return 对应文件信息结果
 	 */
 	@GetMapping("/find/{filename}")
-	public FileResult<UploadFile> findByMainName(@PathVariable String filename) {
+	public FileResult<UploadFile> findByMainName(@PathVariable("filename") String filename) {
 		// 调用服务对象的findByMainName方法即可查找一个已上传的文件信息，返回这个文件的相关信息
 		return uploadFileService.findByMainName(filename);
 	}
@@ -66,7 +66,7 @@ public class UploadTestAPI {
 	 * @return 对应文件信息结果
 	 */
 	@GetMapping("/get/{fullName}")
-	public FileResult<UploadFile> getByFullName(@PathVariable String fullName) {
+	public FileResult<UploadFile> getByFullName(@PathVariable("fullName") String fullName) {
 		// 调用服务对象的findByFullName即可查找一个已上传的文件信息，返回这个文件的相关信息
 		// 与findByMainName不同的是，findByMainName方法不需要文件扩展名即可查找文件，而该方法需要
 		// 其它方法类似
@@ -80,7 +80,7 @@ public class UploadTestAPI {
 	 * @return 下载的文件
 	 */
 	@GetMapping("/download/{filename}")
-	public ResponseEntity<byte[]> downloadByName(@PathVariable String filename) {
+	public ResponseEntity<byte[]> downloadByName(@PathVariable("filename") String filename) {
 		// 调用服务对象的downloadFileByMainName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByMainName(filename);
 		if (!result.isSuccess()) {
@@ -101,7 +101,7 @@ public class UploadTestAPI {
 	 * @return 下载的文件
 	 */
 	@GetMapping("/download-full/{fullName}")
-	public ResponseEntity<byte[]> downloadByFullName(@PathVariable String fullName) {
+	public ResponseEntity<byte[]> downloadByFullName(@PathVariable("fullName") String fullName) {
 		// 调用服务对象的downloadFileByFullName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByFullName(fullName);
 		if (!result.isSuccess()) {

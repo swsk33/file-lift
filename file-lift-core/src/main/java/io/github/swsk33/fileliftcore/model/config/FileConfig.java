@@ -5,10 +5,10 @@ import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import lombok.Data;
 
 /**
- * 通用配置类
+ * 通用配置类（单例）
  */
 @Data
-public abstract class FileConfig {
+public class FileConfig {
 
 	/**
 	 * 唯一单例
@@ -17,14 +17,20 @@ public abstract class FileConfig {
 
 	/**
 	 * 获取配置单例
-	 *
-	 * @return 配置单例，若单例未成功初始化，则返回null
 	 */
 	public static FileConfig getInstance() {
 		if (INSTANCE == null) {
-			throw new RuntimeException("配置未正确初始化！请先根据储存方式，调用对应子类的getInstance方法并完成配置！");
+			synchronized (FileConfig.class) {
+				if (INSTANCE == null) {
+					INSTANCE = new FileConfig();
+				}
+			}
 		}
 		return INSTANCE;
+	}
+
+	private FileConfig() {
+
 	}
 
 	/**

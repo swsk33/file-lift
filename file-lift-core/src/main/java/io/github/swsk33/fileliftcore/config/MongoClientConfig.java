@@ -7,6 +7,8 @@ import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import io.github.swsk33.fileliftcore.model.config.MongoConfig;
 
+import java.net.URI;
+
 import static io.github.swsk33.fileliftcore.util.URLEncodeUtils.percentEncode;
 
 /**
@@ -41,17 +43,34 @@ public class MongoClientConfig {
 		if (mongoClient == null) {
 			synchronized (MongoClientConfig.class) {
 				if (mongoClient == null) {
-					// 读取配置完成连接
+					// 获取配置完成连接
 					MongoConfig config = MongoConfig.getInstance();
-					// 拼接连接字符串
-					StringBuilder url = new StringBuilder("mongodb://");
-					if (!StrUtil.isEmpty(config.getUsername()) && !StrUtil.isEmpty(config.getPassword())) {
-						url.append(percentEncode(config.getUsername())).append(":").append(percentEncode(config.getPassword())).append("@");
+					// 如果uri属性已被配置，则直接使用uri属性
+					if (!StrUtil.isEmpty(config.getUri())) {
+						mongoClient = MongoClients.create(config.getUri());
+						// 解析并且设定数据库
+						try {
+							config.setDatabase(new URI(config.getUri()).getPath().substring(1));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} else {
+						// 拼接连接字符串
+						// 协议头
+						StringBuilder uri = new StringBuilder("mongodb://");
+						// 用户名密码部分
+						if (!StrUtil.isEmpty(config.getUsername()) && !StrUtil.isEmpty(config.getPassword())) {
+							uri.append(percentEncode(config.getUsername())).append(":").append(percentEncode(config.getPassword())).append("@");
+						}
+						// 地址部分
+						uri.append(config.getHost()).append(":").append(config.getPort());
+						// 数据库部分
+						uri.append("/").append(config.getDatabase());
+						// 参数部分
+						uri.append("?").append("authSource=").append(config.getAuthDatabase());
+						// 发起连接以创建MongoDB客户端
+						mongoClient = MongoClients.create(uri.toString());
 					}
-					url.append(config.getHost()).append(":").append(config.getPort()).append("/").append(config.getDatabase());
-					url.append("?").append("authSource=").append(config.getAuthDatabase());
-					// 发起连接以创建MongoDB客户端
-					mongoClient = MongoClients.create(url.toString());
 				}
 			}
 		}
@@ -67,7 +86,9 @@ public class MongoClientConfig {
 		// 调用时检查是否初始化
 		if (bucket == null) {
 			// 初始化桶对象
-			bucket = GridFSBuckets.create(getMongoClient().getDatabase(MongoConfig.getInstance().getDatabase()));
+			MongoClient client = getMongoClient();
+			MongoConfig config = MongoConfig.getInstance();
+			bucket = GridFSBuckets.create(client.getDatabase(config.getDatabase()), config.getBucketName());
 		}
 		return bucket;
 	}
