@@ -9,9 +9,10 @@
 		<img alt="GitHub" src="https://img.shields.io/github/license/swsk33/code-post">
 	</a>
 	<a target="_blank" href="https://www.azul.com/downloads/#downloads-table-zulu">
-		<img alt="Static Badge" src="https://img.shields.io/badge/17%2B-blue?label=JDK">
+		<img alt="Static Badge" src="https://img.shields.io/badge/8%2B-blue?label=JDK">
 	</a>
 </p>
+
 
 ## 1，介绍
 FileLift是一款简单的Java文件上传管理框架，其中封装了常用的关于文件上传、下载以及上传的文件管理的接口，并且支持多种上传文件的储存方式，开箱即用。
@@ -24,7 +25,7 @@ FileLift是一款简单的Java文件上传管理框架，其中封装了常用�
 
 ### (2) 功能介绍
 
-该框架主要是用于简化传统SpringMVC或者Spring Boot项目的文件上传逻辑，目前仅仅支持的是**小文件的上传和管理**，不建议用于大文件上传。
+该框架主要是用于简化传统Spring MVC或者Spring Boot项目的文件上传逻辑，目前仅仅支持的是**小文件的上传和管理**，不建议用于大文件上传。
 
 其主要功能如下：
 
@@ -43,8 +44,8 @@ FileLift是一款简单的Java文件上传管理框架，其中封装了常用�
 
 使用该框架需要满足以下要求：
 
-- JDK 17及其以上版本
-- Spring 6.0或者Spring Boot 3.0.0及其以上版本
+- JDK 8及其以上版本
+- Spring 5.x或者Spring Boot 2.x及其以上版本，建议使用Spring Boot 2.7.x及其以上版本
 
 ### (2) 在Spring Boot环境集成
 
@@ -54,7 +55,7 @@ FileLift是一款简单的Java文件上传管理框架，其中封装了常用�
 <dependency>
 	<groupId>io.github.swsk33</groupId>
 	<artifactId>file-lift-spring-boot-starter</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 
@@ -158,7 +159,7 @@ public class UploadTestAPI {
 	 * @return 执行结果
 	 */
 	@DeleteMapping("/delete/{filename}")
-	public FileResult<Void> delete(@PathVariable String filename) {
+	public FileResult<Void> delete(@PathVariable("filename") String filename) {
 		// 调用服务对象的delete方法即可删除文件，返回删除结果
 		return uploadFileService.delete(filename);
 	}
@@ -170,7 +171,7 @@ public class UploadTestAPI {
 	 * @return 对应文件信息结果
 	 */
 	@GetMapping("/find/{filename}")
-	public FileResult<UploadFile> findByMainName(@PathVariable String filename) {
+	public FileResult<UploadFile> findByMainName(@PathVariable("filename") String filename) {
 		// 调用服务对象的findByMainName方法即可查找一个已上传的文件信息，返回这个文件的相关信息
 		return uploadFileService.findByMainName(filename);
 	}
@@ -182,7 +183,7 @@ public class UploadTestAPI {
 	 * @return 对应文件信息结果
 	 */
 	@GetMapping("/get/{fullName}")
-	public FileResult<UploadFile> getByFullName(@PathVariable String fullName) {
+	public FileResult<UploadFile> getByFullName(@PathVariable("fullName") String fullName) {
 		// 调用服务对象的findByFullName即可查找一个已上传的文件信息，返回这个文件的相关信息
 		// 与findByMainName不同的是，findByMainName方法不需要文件扩展名即可查找文件，而该方法需要
 		// 其它方法类似
@@ -196,7 +197,7 @@ public class UploadTestAPI {
 	 * @return 下载的文件
 	 */
 	@GetMapping("/download/{filename}")
-	public ResponseEntity<byte[]> downloadByName(@PathVariable String filename) {
+	public ResponseEntity<byte[]> downloadByName(@PathVariable("filename") String filename) {
 		// 调用服务对象的downloadFileByMainName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByMainName(filename);
 		if (!result.isSuccess()) {
@@ -217,7 +218,7 @@ public class UploadTestAPI {
 	 * @return 下载的文件
 	 */
 	@GetMapping("/download-full/{fullName}")
-	public ResponseEntity<byte[]> downloadByFullName(@PathVariable String fullName) {
+	public ResponseEntity<byte[]> downloadByFullName(@PathVariable("fullName") String fullName) {
 		// 调用服务对象的downloadFileByFullName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByFullName(fullName);
 		if (!result.isSuccess()) {
@@ -269,6 +270,6 @@ public class UploadTestAPI {
 
 在此，我们通过FileLift实现了一个简单的文件上传和下载功能了！更多关于该框架的文档请参考：
 
-- 详细文档：[传送门](./file-lift-doc/主要文档.md)
-- 配置参考：[传送门](./file-lift-doc/配置选项.md)
+- 详细文档：[传送门](./docs/主要文档.md)
+- 配置参考：[传送门](./docs/配置选项.md)
 - API文档：[传送门](https://apidoc.gitee.com/swsk33/file-lift/)

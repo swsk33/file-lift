@@ -1,0 +1,27 @@
+####### 以下是FileLift相关配置 #######
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          # 使用本地文件系统储存上传的文件
+          storage-method: "filesystem"
+          # 上传文件最大限制为10240KB，即10MB
+          # 不配置该选项表示不对文件大小做限制
+          size-limit: 10240
+          # 不允许同名文件上传覆盖
+          override: false
+          # 开启文件上传后自动命名功能
+          auto-rename: true
+          # 使用时间字符串对文件自动命名
+          auto-rename-format: "time"
+          # 允许上传的文件格式，这里表示允许jpg、png和无扩展名的文件上传
+          # 不配置该选项表示允许任何格式文件上传
+          allowed-formats:
+            - "jpg"
+            - "png"
+            - "?"
+        # 关于文件系统储存方案配置
+        filesystem:
+          # 表示上传的文件保存到程序运行目录下的avatar文件夹中（不存在会自动创建）
+          save-folder: "avatar"

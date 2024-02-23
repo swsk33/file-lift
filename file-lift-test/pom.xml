@@ -18,6 +18,7 @@
 	</properties>
 
 	<modules>
+		<module>file-lift-spring-boot2-test</module>
 		<module>file-lift-spring-boot3-test</module>
 		<module>file-lift-spring-local-test</module>
 	</modules>

@@ -6,12 +6,12 @@
 		<artifactId>file-lift-test</artifactId>
 		<version>1.1.0</version>
 	</parent>
-	<artifactId>file-lift-spring-boot3-test</artifactId>
-	<name>FileLift - Spring Boot 3.x Test</name>
-	<description>FileLift-Spring Boot3测试</description>
+	<artifactId>file-lift-spring-boot2-test</artifactId>
+	<name>FileLift - Spring Boot 2.x Test</name>
+	<description>FileLift-Spring Boot2测试</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
@@ -39,7 +39,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot3.test.version}</version>
+				<version>${spring.boot2.test.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -51,7 +51,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot3.test.version}</version>
+				<version>${spring.boot2.test.version}</version>
 				<configuration>
 					<excludes>
 						<exclude>

@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: "fs"
+  servlet:
+    multipart:
+      max-file-size: 12MB
+      max-request-size: 12MB
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+
+server:
+  port: 8801
+  tomcat:
+    max-http-form-post-size: 12MB

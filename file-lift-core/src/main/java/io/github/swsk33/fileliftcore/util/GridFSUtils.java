@@ -44,10 +44,13 @@ public class GridFSUtils {
 	 * @param type            文件原本的扩展名，不带.
 	 * @return 上传文件后的文件id
 	 */
-	public static ObjectId uploadFile(InputStream fileInputStream, String filename, String type) {
+	public static ObjectId uploadFile(InputStream fileInputStream, String filename, String type) throws Exception {
 		GridFSUploadOptions options = new GridFSUploadOptions();
 		options.metadata(new Document("type", type));
-		return getBucket().uploadFromStream(filename, fileInputStream, options);
+		ObjectId getId = getBucket().uploadFromStream(filename, fileInputStream, options);
+		// 上传完成后关闭文件流
+		fileInputStream.close();
+		return getId;
 	}
 
 	/**
