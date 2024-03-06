@@ -3,7 +3,7 @@ package io.github.swsk33.fileliftcore.model.file;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import io.github.swsk33.fileliftcore.config.MongoClientConfig;
+import io.github.swsk33.fileliftcore.config.MongoClientConfigure;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -44,7 +44,7 @@ public class MongoFile extends UploadFile {
 			fileFullName.append(".").append(this.getFormat());
 		}
 		content.setContentType(HttpUtil.getMimeType(fileFullName.toString(), "application/octet-stream"));
-		content.setFileStream(MongoClientConfig.getBucket().openDownloadStream(this.getId()));
+		content.setFileStream(MongoClientConfigure.getBucket().openDownloadStream(this.getId()));
 		return content;
 	}
 

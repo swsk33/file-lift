@@ -2,9 +2,9 @@ package io.github.swsk33.fileliftcore.strategy.impl;
 
 import cn.hutool.core.io.file.FileNameUtil;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import io.github.swsk33.fileliftcore.config.MongoClientConfig;
+import io.github.swsk33.fileliftcore.config.MongoClientConfigure;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.model.file.MongoFile;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
@@ -21,10 +21,10 @@ public class MongoDBFileProcessStrategy implements FileProcessStrategy {
 	public UploadFile saveFile(MultipartFile file, String saveName) {
 		String formatName = FileNameUtil.extName(file.getOriginalFilename());
 		// 如果关闭了自动重命名且开启了允许覆盖，则先查找数据库是否存在对应文件名，若存在则先删除
-		if (!FileConfig.getInstance().isAutoRename() && FileConfig.getInstance().isOverride()) {
+		if (!FileLiftCoreConfig.getInstance().isAutoRename() && FileLiftCoreConfig.getInstance().isOverride()) {
 			MongoFile getFile = (MongoFile) findFileByMainName(saveName);
 			if (getFile != null) {
-				MongoClientConfig.getBucket().delete(getFile.getId());
+				MongoClientConfigure.getBucket().delete(getFile.getId());
 			}
 		}
 		ObjectId id;

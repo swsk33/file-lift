@@ -4,8 +4,8 @@ io:
     swsk33:
       file-lift:
         core:
-          # 使用MongoDB储存上传的文件
-          storage-method: "mongodb"
+          # 使用MinIO储存上传的文件
+          storage-method: "minio"
           # 上传文件最大限制为10240KB，即10MB
           # 不配置该选项表示不对文件大小做限制
           size-limit: 10240
@@ -14,16 +14,16 @@ io:
           # 开启文件上传后自动命名功能
           auto-rename: true
           # 使用时间字符串对文件自动命名
-          auto-rename-format: "time"
+          auto-rename-format: "simple_uuid"
           # 允许上传的文件格式，这里表示允许jpg、png和无扩展名的文件上传
           # 不配置该选项表示允许任何格式文件上传
           allowed-formats:
             - "jpg"
             - "png"
             - "?"
-
-# 配置MongoDB集群数据源
-spring:
-  data:
-    mongodb:
-      uri: "mongodb://swsk33:dev-2333@127.0.0.1:25000,127.0.0.1:25001,127.0.0.1:25002/file_lift_test?authSource=admin"
+        # MinIO储存方案配置
+        minio:
+          endpoint: "http://127.0.0.1:9000"
+          access-key: "SgVzkQOFzlvyuSaU96Yy"
+          secret-key: "su5s6YtDK1oSGkp2pYptE6cogcn9vJErAadxZ7DF"
+          bucket-name: "file-lift-test"

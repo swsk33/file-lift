@@ -1,7 +1,7 @@
 package io.github.swsk33.fileliftcore.validator.impl;
 
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import io.github.swsk33.fileliftcore.strategy.context.FileProcessStrategyContext;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ public class FileOverrideValidator extends FileValidator {
 	@Override
 	public FileValidateResult validateFile(MultipartFile file) {
 		// 获取配置
-		FileConfig config = FileConfig.getInstance();
+		FileLiftCoreConfig config = FileLiftCoreConfig.getInstance();
 		// 如果自动重命名打开或者配置为允许覆盖，则校验直接通过
 		if (config.isAutoRename() || config.isOverride()) {
 			return passToNext(file);

@@ -4,7 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +16,7 @@ public class FileFormatValidator extends FileValidator {
 	@Override
 	public FileValidateResult validateFile(MultipartFile file) {
 		// 校验文件的格式是否是允许的
-		String[] allowFormats = FileConfig.getInstance().getAllowedFormats();
+		String[] allowFormats = FileLiftCoreConfig.getInstance().getAllowedFormats();
 		// 若不需要类型判断则执行下一个校验
 		if (allowFormats == null || allowFormats.length == 0) {
 			return passToNext(file);

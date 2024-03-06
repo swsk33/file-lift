@@ -4,7 +4,7 @@ io:
     swsk33:
       file-lift:
         core:
-          # 使用本地文件系统储存上传的文件
+          # 使用MongoDB储存上传的文件
           storage-method: "mongodb"
           # 上传文件最大限制为10240KB，即10MB
           # 不配置该选项表示不对文件大小做限制

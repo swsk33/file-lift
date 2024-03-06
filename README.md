@@ -37,6 +37,7 @@ FileLift是一款简单的Java文件上传管理框架，其中封装了常用�
 - 支持多种储存已上传文件的方式，包括：
 	- 本地文件系统
 	- MongoDB GridFS（需要额外引入`mongodb-driver-sync`或者`spring-boot-starter-data-mongodb`依赖）
+	- MinIO对象储存（需要额外引入`minio`依赖）
 
 ## 2，快速开始
 
@@ -55,7 +56,7 @@ FileLift是一款简单的Java文件上传管理框架，其中封装了常用�
 <dependency>
 	<groupId>io.github.swsk33</groupId>
 	<artifactId>file-lift-spring-boot-starter</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 </dependency>
 ```
 

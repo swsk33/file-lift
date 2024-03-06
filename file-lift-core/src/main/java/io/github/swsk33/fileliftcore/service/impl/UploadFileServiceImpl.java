@@ -2,7 +2,7 @@ package io.github.swsk33.fileliftcore.service.impl;
 
 import cn.hutool.core.io.file.FileNameUtil;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.model.result.FileResult;
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
@@ -22,7 +22,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 * 全局配置（需要注入）
 	 */
 	@Setter
-	private FileConfig config;
+	private FileLiftCoreConfig config;
 
 	@Override
 	public FileResult<UploadFile> upload(MultipartFile uploadFile) {

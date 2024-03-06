@@ -5,31 +5,31 @@ import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import lombok.Data;
 
 /**
- * 通用配置类（单例）
+ * 核心通用配置类（单例）
  */
 @Data
-public class FileConfig {
+public class FileLiftCoreConfig {
 
 	/**
 	 * 唯一单例
 	 */
-	protected static volatile FileConfig INSTANCE;
+	private static volatile FileLiftCoreConfig INSTANCE;
 
 	/**
 	 * 获取配置单例
 	 */
-	public static FileConfig getInstance() {
+	public static FileLiftCoreConfig getInstance() {
 		if (INSTANCE == null) {
-			synchronized (FileConfig.class) {
+			synchronized (FileLiftCoreConfig.class) {
 				if (INSTANCE == null) {
-					INSTANCE = new FileConfig();
+					INSTANCE = new FileLiftCoreConfig();
 				}
 			}
 		}
 		return INSTANCE;
 	}
 
-	private FileConfig() {
+	private FileLiftCoreConfig() {
 
 	}
 

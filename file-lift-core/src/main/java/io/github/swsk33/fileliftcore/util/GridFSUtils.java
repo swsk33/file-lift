@@ -7,7 +7,7 @@ import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.gridfs.model.GridFSUploadOptions;
 import com.mongodb.client.model.Filters;
-import io.github.swsk33.fileliftcore.config.MongoClientConfig;
+import io.github.swsk33.fileliftcore.config.MongoClientConfigure;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -31,7 +31,7 @@ public class GridFSUtils {
 	 */
 	private static GridFSBucket getBucket() {
 		if (bucket == null) {
-			bucket = MongoClientConfig.getBucket();
+			bucket = MongoClientConfigure.getBucket();
 		}
 		return bucket;
 	}

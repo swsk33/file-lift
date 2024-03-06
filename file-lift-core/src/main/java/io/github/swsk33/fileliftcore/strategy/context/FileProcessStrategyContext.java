@@ -5,6 +5,7 @@ import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.FileSystemProcessStrategy;
+import io.github.swsk33.fileliftcore.strategy.impl.MinioFileProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.MongoDBFileProcessStrategy;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,7 @@ public class FileProcessStrategyContext {
 	static {
 		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.FILE, FileSystemProcessStrategy.class);
 		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.MONGO, MongoDBFileProcessStrategy.class);
+		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.MINIO, MinioFileProcessStrategy.class);
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class FileProcessStrategyContext {
 	 */
 	private static FileProcessStrategy getStrategy(String storageMethod) {
 		// 如果该文件储存方式位于储存方式常量列表中，但是不在策略容器中，说明还未进行初始化
-		// 使用双检锁进行初始化
+		// 使用双检锁进行初始化每个策略对象（防止因为未使用的方案依赖未引入导致的ClassNotFound异常）
 		if (FileStorageMethods.contains(storageMethod) && !FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
 			synchronized (FileProcessStrategyContext.class) {
 				if (!FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {

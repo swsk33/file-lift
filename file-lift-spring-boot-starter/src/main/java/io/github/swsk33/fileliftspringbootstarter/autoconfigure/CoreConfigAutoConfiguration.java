@@ -1,7 +1,7 @@
 package io.github.swsk33.fileliftspringbootstarter.autoconfigure;
 
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftspringbootstarter.property.CoreProperties;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
 public class CoreConfigAutoConfiguration {
 
 	@Bean
-	public FileConfig createFileConfig(CoreProperties coreProperties) {
-		FileConfig config = FileConfig.getInstance();
+	public FileLiftCoreConfig createFileConfig(CoreProperties coreProperties) {
+		FileLiftCoreConfig config = FileLiftCoreConfig.getInstance();
 		config.setStorageMethod(coreProperties.getStorageMethod());
 		config.setAllowedFormats(coreProperties.getAllowedFormats());
 		config.setSizeLimit(coreProperties.getSizeLimit());

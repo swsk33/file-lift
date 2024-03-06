@@ -2,4 +2,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 io.github.swsk33.fileliftspringbootstarter.autoconfigure.UploadFileServiceAutoConfiguration,\
 io.github.swsk33.fileliftspringbootstarter.autoconfigure.CoreConfigAutoConfiguration,\
 io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod.FileSystemAutoConfiguration,\
-io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod.GridFSAutoConfiguration
+io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod.GridFSAutoConfiguration,\
+io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod.MinioAutoConfiguration

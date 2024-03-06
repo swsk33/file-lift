@@ -19,6 +19,11 @@ public class FileStorageMethods {
 	public static final String MONGO = "mongodb";
 
 	/**
+	 * 使用MinIO存储文件
+	 */
+	public static final String MINIO = "minio";
+
+	/**
 	 * 传入一个文件储存方式名，利用反射的方式检查这个储存方式是否属于上述所有的常量中的某一个
 	 *
 	 * @param storageMethod 文件储存方式名

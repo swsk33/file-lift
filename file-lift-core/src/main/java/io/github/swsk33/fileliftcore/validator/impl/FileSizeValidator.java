@@ -1,7 +1,7 @@
 package io.github.swsk33.fileliftcore.validator.impl;
 
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +13,7 @@ public class FileSizeValidator extends FileValidator {
 	@Override
 	public FileValidateResult validateFile(MultipartFile file) {
 		// 获取配置大小
-		int sizeLimit = FileConfig.getInstance().getSizeLimit();
+		int sizeLimit = FileLiftCoreConfig.getInstance().getSizeLimit();
 		// 若配置的大小小于等于0，则直接通过到下一步
 		if (sizeLimit <= 0) {
 			return passToNext(file);

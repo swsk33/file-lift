@@ -80,7 +80,7 @@ public class MongoConfig {
 
 	/**
 	 * 认证数据库
-	 * 默认为admin
+	 * 默认为：admin
 	 */
 	private String authDatabase = "admin";
 

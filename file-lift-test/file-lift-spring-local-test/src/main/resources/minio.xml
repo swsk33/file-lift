@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<!-- 本地文件系统储存方案的配置 -->
+	<!-- MinIO储存方案的配置 -->
 	<!-- 定义核心配置Bean -->
 	<bean id="coreConfig" class="io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig" factory-method="getInstance">
 		<!-- 配置对应的属性值 -->
-		<!-- 使用本地文件系统储存方案 -->
-		<property name="storageMethod" value="filesystem"/>
+		<!-- 使用MinIO储存方案 -->
+		<property name="storageMethod" value="minio"/>
 		<!-- 表示允许jpg、png和无扩展名文件上传 -->
 		<property name="allowedFormats">
 			<array>
@@ -24,10 +24,12 @@
 		<property name="autoRenameFormat" value="time"/>
 	</bean>
 
-	<!-- 文件系统储存方案配置 -->
-	<bean id="fileSystemConfig" class="io.github.swsk33.fileliftcore.model.config.FileSystemConfig" factory-method="getInstance">
-		<!-- 表示上传的文件保存到程序运行目录下的avatar文件夹中 -->
-		<property name="saveFolder" value="avatar"/>
+	<!-- MinIO方案配置 -->
+	<bean id="minioConfig" class="io.github.swsk33.fileliftcore.model.config.MinioConfig" factory-method="getInstance">
+		<property name="endpoint" value="http://127.0.0.1:9000"/>
+		<property name="accessKey" value="SgVzkQOFzlvyuSaU96Yy"/>
+		<property name="secretKey" value="su5s6YtDK1oSGkp2pYptE6cogcn9vJErAadxZ7DF"/>
+		<property name="bucketName" value="wocao-op"/>
 	</bean>
 
 	<!-- 定义文件上传服务类Bean -->

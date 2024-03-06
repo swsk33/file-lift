@@ -7,9 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("fs.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("minio.xml");
 		UploadFileService service = context.getBean(UploadFileService.class);
-		System.out.println(service.findByMainName("abc"));
+		System.out.println(service.findByMainName("305364024627717"));
 	}
 
 }

@@ -14,7 +14,7 @@ import static io.github.swsk33.fileliftcore.util.URLEncodeUtils.percentEncode;
 /**
  * MongoDB连接客户端配置（单例）
  */
-public class MongoClientConfig {
+public class MongoClientConfigure {
 
 	/**
 	 * 数据库客户端对象
@@ -29,7 +29,7 @@ public class MongoClientConfig {
 	/**
 	 * 私有化构造器
 	 */
-	private MongoClientConfig() {
+	private MongoClientConfigure() {
 
 	}
 
@@ -41,7 +41,7 @@ public class MongoClientConfig {
 	private static MongoClient getMongoClient() {
 		// 使用双检锁延迟初始化
 		if (mongoClient == null) {
-			synchronized (MongoClientConfig.class) {
+			synchronized (MongoClientConfigure.class) {
 				if (mongoClient == null) {
 					// 获取配置完成连接
 					MongoConfig config = MongoConfig.getInstance();

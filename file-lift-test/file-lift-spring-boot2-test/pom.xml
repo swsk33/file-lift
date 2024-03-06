@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.github.swsk33</groupId>
 		<artifactId>file-lift-test</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 	</parent>
 	<artifactId>file-lift-spring-boot2-test</artifactId>
 	<name>FileLift - Spring Boot 2.x Test</name>
@@ -30,6 +30,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.5.9</version>
 		</dependency>
 	</dependencies>
 

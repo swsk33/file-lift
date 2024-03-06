@@ -10,7 +10,7 @@ import lombok.Data;
 public abstract class UploadFile {
 
 	/**
-	 * 文件名
+	 * 文件名（不包括扩展名）
 	 */
 	private String name;
 

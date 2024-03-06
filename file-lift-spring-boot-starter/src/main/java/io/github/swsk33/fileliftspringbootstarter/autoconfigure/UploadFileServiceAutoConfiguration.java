@@ -1,6 +1,6 @@
 package io.github.swsk33.fileliftspringbootstarter.autoconfigure;
 
-import io.github.swsk33.fileliftcore.model.config.FileConfig;
+import io.github.swsk33.fileliftcore.model.config.FileLiftCoreConfig;
 import io.github.swsk33.fileliftcore.service.UploadFileService;
 import io.github.swsk33.fileliftcore.service.impl.UploadFileServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class UploadFileServiceAutoConfiguration {
 
 	@Autowired
-	private FileConfig fileConfig;
+	private FileLiftCoreConfig fileLiftCoreConfig;
 
 	/**
 	 * 自动配置核心服务类
@@ -24,7 +24,7 @@ public class UploadFileServiceAutoConfiguration {
 	@Bean
 	public UploadFileService uploadFileService() {
 		UploadFileServiceImpl service = new UploadFileServiceImpl();
-		service.setConfig(fileConfig);
+		service.setConfig(fileLiftCoreConfig);
 		log.info("------- FileLift文件上传服务已完成自动配置( • ̀ω•́ )✧ -------");
 		return service;
 	}

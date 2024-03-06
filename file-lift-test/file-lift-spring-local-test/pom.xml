@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>file-lift-test</artifactId>
 		<groupId>io.github.swsk33</groupId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>file-lift-spring-local-test</artifactId>
@@ -23,11 +23,31 @@
 			<version>${spring.test.version}</version>
 		</dependency>
 
+		<!-- Spring MVC相关 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.test.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.test.version}</version>
+		</dependency>
+
 		<!-- MongoDB -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver-sync</artifactId>
 			<version>4.11.1</version>
+		</dependency>
+
+		<!-- MinIO -->
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.5.9</version>
 		</dependency>
 
 		<!-- FileLift核心 -->
