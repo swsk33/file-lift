@@ -26,15 +26,19 @@ public class UploadFileServiceImpl implements UploadFileService {
 
 	@Override
 	public FileResult<UploadFile> upload(MultipartFile uploadFile) {
+		// 根据策略，判断是沿用原始文件名还是生成文件名
+		return uploadForceName(uploadFile, config.isAutoRename() ? FileNameStrategyContext.generateFileName(config.getAutoRenameFormat()) : FileNameUtil.mainName(uploadFile.getOriginalFilename()));
+	}
+
+	@Override
+	public FileResult<UploadFile> uploadForceName(MultipartFile uploadFile, String name) {
 		// 上传文件之前，先校验文件
-		FileValidateResult validateResult = FileValidatorContext.validateFile(uploadFile);
+		FileValidateResult validateResult = FileValidatorContext.validateFile(uploadFile, name);
 		if (!validateResult.isSuccess()) {
 			return FileResult.resultFailed(validateResult.getMessage());
 		}
-		// 获取文件名，或者根据配置自动重命名
-		String mainName = config.isAutoRename() ? FileNameStrategyContext.generateFileName(config.getAutoRenameFormat()) : FileNameUtil.mainName(uploadFile.getOriginalFilename());
 		// 调用文件存储策略完成文件存储
-		return FileResult.resultSuccess("上传文件完成！", FileProcessStrategyContext.saveFile(config.getStorageMethod(), uploadFile, mainName));
+		return FileResult.resultSuccess("上传文件完成！", FileProcessStrategyContext.saveFile(config.getStorageMethod(), uploadFile, name));
 	}
 
 	@Override

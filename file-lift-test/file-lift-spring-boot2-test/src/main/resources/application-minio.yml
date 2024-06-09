@@ -23,7 +23,11 @@ io:
             - "?"
         # MinIO储存方案配置
         minio:
+          # MinIO服务端地址和端口
           endpoint: "http://127.0.0.1:9000"
-          access-key: "SgVzkQOFzlvyuSaU96Yy"
-          secret-key: "su5s6YtDK1oSGkp2pYptE6cogcn9vJErAadxZ7DF"
-          bucket-name: "file-lift-test"
+          # Access Key
+          access-key: "QMvOSfh3NYmzGO7JPzdB"
+          # Secret Key
+          secret-key: "xAVkkj4lLZr7Io3hL1mqXtMdvhoSiNzxsniFCnXy"
+          # 存放文件的储存桶名称
+          bucket-name: "op-test"

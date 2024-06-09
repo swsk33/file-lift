@@ -69,7 +69,7 @@ public class FileProcessStrategyContext {
 	 *
 	 * @param storageMethod 文件储存方式
 	 * @param file          上传的文件
-	 * @param saveName      保存的文件名（不带扩展名）
+	 * @param saveName      保存的文件名（不带扩展名，扩展名会根据原始上传文件自动获取）
 	 * @return 保存的文件对象，其中不包含文件内容信息（文件流为空），若保存失败则返回null
 	 */
 	public static UploadFile saveFile(String storageMethod, MultipartFile file, String saveName) {

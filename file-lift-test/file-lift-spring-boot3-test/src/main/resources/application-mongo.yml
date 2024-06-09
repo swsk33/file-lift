@@ -29,8 +29,8 @@ spring:
       host: "127.0.0.1"
       port: 27017
       database: "file_lift_test"
-      username: "root"
-      password: "dev-2333"
+      username: "swsk33"
+      password: "wocaoop"
 #      # 认证数据库，不配置则默认admin
 #      authentication-database: "admin"
 #      gridfs:

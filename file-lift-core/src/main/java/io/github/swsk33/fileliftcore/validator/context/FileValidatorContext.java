@@ -37,8 +37,8 @@ public class FileValidatorContext {
 	 * @param file 上传的文件对象
 	 * @return 校验结果
 	 */
-	public static FileValidateResult validateFile(MultipartFile file) {
-		return entrypoint.validateFile(file);
+	public static FileValidateResult validateFile(MultipartFile file, String name) {
+		return entrypoint.validateFile(file, name);
 	}
 
 }

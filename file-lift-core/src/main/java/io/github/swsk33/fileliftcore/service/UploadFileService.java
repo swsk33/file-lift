@@ -19,6 +19,17 @@ public interface UploadFileService {
 	FileResult<UploadFile> upload(MultipartFile uploadFile);
 
 	/**
+	 * 上传文件并指定文件名<br>
+	 * 需要注意的是：该方法将无视配置autoRename，无论是否开启自动重命名配置，都可以通过该方法指定上传后的文件名<br>
+	 * 但是，该方法仍然会受到override配置影响，若不允许同名覆盖，则可能会因为指定的文件名已存在而上传失败
+	 *
+	 * @param uploadFile 上传的文件对象
+	 * @param name       指定上传后的文件名，不带扩展名（扩展名将使用原始文件扩展名）
+	 * @return 文件结果，包含上传的文件信息
+	 */
+	FileResult<UploadFile> uploadForceName(MultipartFile uploadFile, String name);
+
+	/**
 	 * 删除已上传文件
 	 *
 	 * @param filename 要删除的文件名

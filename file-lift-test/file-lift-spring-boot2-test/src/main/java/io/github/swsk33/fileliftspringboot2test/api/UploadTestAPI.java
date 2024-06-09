@@ -5,6 +5,8 @@ import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.model.result.FileResult;
 import io.github.swsk33.fileliftcore.service.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,19 @@ public class UploadTestAPI {
 	public FileResult<UploadFile> upload(@RequestParam("file") MultipartFile file) {
 		// 调用服务对象的upload方法即可完成上传文件，返回这个文件的相关信息
 		return uploadFileService.upload(file);
+	}
+
+	/**
+	 * 上传文件，并指定上传后的文件名称<br>
+	 * 该方法无视配置autoRename，但是仍然会受到override配置影响
+	 *
+	 * @param file 接收的文件对象（MultipartFile表单形式）
+	 * @param name 上传后的文件名，不包括扩展名
+	 * @return 上传后文件信息结果
+	 */
+	@PostMapping("/upload-force-name/{name}")
+	public FileResult<UploadFile> uploadForceName(@RequestParam("file") MultipartFile file, @PathVariable("name") String name) {
+		return uploadFileService.uploadForceName(file, name);
 	}
 
 	/**
@@ -83,15 +98,20 @@ public class UploadTestAPI {
 	public ResponseEntity<byte[]> downloadByName(@PathVariable("filename") String filename) {
 		// 调用服务对象的downloadFileByMainName可以下载文件，返回包含文件内容二进制流以及一些其它元数据
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByMainName(filename);
+		// 若下载文件失败则返回404
 		if (!result.isSuccess()) {
 			return ResponseEntity.notFound().build();
 		}
-		// 返回响应
-		return ResponseEntity.ok()
-				// 获取结果中文件的content-type信息并设定
-				.contentType(MediaType.parseMediaType(result.getData().getContentType()))
-				// 放入文件内容至响应体以下载
-				.body(result.getData().getByteAndClose());
+		// 获取二进制结果中的文件流信息
+		BinaryContent content = result.getData();
+		// 准备响应头
+		HttpHeaders headers = new HttpHeaders();
+		// 设定MediaType类型（从文件结果中获取并设定）至响应头
+		headers.setContentType(MediaType.parseMediaType(content.getContentType()));
+		// 设定Content-Disposition头，告诉浏览器下载的文件名称
+		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(filename).build());
+		// 最终返回响应对象
+		return ResponseEntity.ok().headers(headers).body(content.getByteAndClose());
 	}
 
 	/**
@@ -107,12 +127,16 @@ public class UploadTestAPI {
 		if (!result.isSuccess()) {
 			return ResponseEntity.notFound().build();
 		}
-		// 返回响应
-		return ResponseEntity.ok()
-				// 获取结果中文件的content-type信息并设定
-				.contentType(MediaType.parseMediaType(result.getData().getContentType()))
-				// 放入文件内容至响应体以下载
-				.body(result.getData().getByteAndClose());
+		// 获取二进制结果中的文件流信息
+		BinaryContent content = result.getData();
+		// 准备响应头
+		HttpHeaders headers = new HttpHeaders();
+		// 设定MediaType类型（从文件结果中获取并设定）至响应头
+		headers.setContentType(MediaType.parseMediaType(content.getContentType()));
+		// 设定Content-Disposition头，告诉浏览器下载的文件名称
+		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fullName).build());
+		// 最终返回响应对象
+		return ResponseEntity.ok().headers(headers).body(content.getByteAndClose());
 	}
 
 }
