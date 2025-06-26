@@ -1,21 +1,21 @@
 # Maven
-/**/target/
+target/
 
 # VSCode
-/**/.vscode/
+.vscode/
 
 # Eclipse
-/**/.settings/
-/**/.classpath
-/**/.project
+.settings/
+.classpath
+.project
 
 # IDEA
-/**/.idea/
-/**/*.iml
+.idea/
+*.iml
 
 # draw.io
-/**/.$*.bkp
-/**/.$*.dtmp
+.$*.bkp
+.$*.dtmp
 
 # 测试上传的文件
 /file-lift-test/**/avatar/

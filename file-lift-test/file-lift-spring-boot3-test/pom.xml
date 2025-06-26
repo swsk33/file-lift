@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.github.swsk33</groupId>
 		<artifactId>file-lift-test</artifactId>
-		<version>1.2.1</version>
+		<version>1.3.0</version>
 	</parent>
 	<artifactId>file-lift-spring-boot3-test</artifactId>
 	<name>FileLift - Spring Boot 3.x Test</name>

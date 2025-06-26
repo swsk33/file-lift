@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.swsk33</groupId>
 	<artifactId>file-lift-parent</artifactId>
-	<version>1.2.1</version>
+	<version>1.3.0</version>
 	<packaging>pom</packaging>
 	<name>FileLift - Total Parent</name>
 	<description>一款用于文件上传的外部库，其中封装了多种文件上传和管理操作的接口，并且支持使用文件系统或者数据库等多种方式存放文件，经过简单配置即可使用</description>
@@ -21,7 +21,8 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<file.lift.version>1.2.1</file.lift.version>
+		<file.lift.version>1.3.0</file.lift.version>
+		<spring-boot-starter.version>2.7.18</spring-boot-starter.version>
 	</properties>
 
 	<licenses>
@@ -52,7 +53,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
+			<version>1.18.38</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -60,11 +61,22 @@
 	<!-- 依赖版本管理 -->
 	<dependencyManagement>
 		<dependencies>
-			<!-- Hutool -->
+			<!-- Hutool实用工具 -->
 			<dependency>
 				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-all</artifactId>
-				<version>5.8.28</version>
+				<artifactId>hutool-bom</artifactId>
+				<version>5.8.38</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- AWS SDK 2.x -->
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.31.71</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<!-- FileLift核心 -->
@@ -82,11 +94,10 @@
 			<plugin>
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
-				<version>0.4.0</version>
+				<version>0.8.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<publishingServerId>central</publishingServerId>
-					<tokenAuth>true</tokenAuth>
 				</configuration>
 			</plugin>
 
@@ -94,7 +105,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.3.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -109,7 +120,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.6.3</version>
+				<version>3.11.2</version>
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
@@ -128,7 +139,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>3.2.7</version>
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>
