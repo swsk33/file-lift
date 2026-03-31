@@ -1,12 +1,15 @@
 package io.github.swsk33.fileliftcore.model.config;
 
-import lombok.Data;
+import lombok.*;
 
 /**
- * 适用于MongoDB GridFS储存的配置（单例）
+ * 适用于MongoDB GridFS储存的配置
  */
-@Data
-public class MongoConfig {
+@Value
+@Builder
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class MongoConfig extends StorageConfig {
 
 	/**
 	 * MongoDB 连接字符串<br>
@@ -25,46 +28,50 @@ public class MongoConfig {
 	 *     <li>authDatabase</li>
 	 * </ul>
 	 */
-	private String uri;
+	String uri;
 
 	/**
 	 * 数据库地址
 	 * 默认为：127.0.0.1
 	 */
-	private String host = "127.0.0.1";
+	@Builder.Default
+	String host = "127.0.0.1";
 
 	/**
 	 * 数据库端口
 	 * 默认为：27017
 	 */
-	private int port = 27017;
+	@Builder.Default
+	int port = 27017;
 
 	/**
 	 * 用户名
 	 */
-	private String username;
+	String username;
 
 	/**
 	 * 密码
 	 */
-	private String password;
+	String password;
 
 	/**
 	 * 连接的数据库
 	 * 最好是和项目数据库一致
 	 */
-	private String database;
+	String database;
 
 	/**
 	 * 认证数据库
 	 * 默认为：admin
 	 */
-	private String authDatabase = "admin";
+	@Builder.Default
+	String authDatabase = "admin";
 
 	/**
 	 * 文件存放桶名称
 	 * 默认为：fs
 	 */
-	private String bucketName = "fs";
+	@Builder.Default
+	String bucketName = "fs";
 
 }

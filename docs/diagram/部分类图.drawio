@@ -1,11 +1,11 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5" pages="2">
   <diagram name="配置类" id="LbKyr1l8XvxhmQRmnNMD">
-    <mxGraphModel dx="272" dy="628" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="#CCFFFF" math="0" shadow="0">
+    <mxGraphModel dx="272" dy="1028" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="#CCFFFF" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="cHiQ8dfTekQaSsWwK8I8-31" value="CoreConfig" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
-          <mxGeometry x="1150" y="52" width="177" height="190" as="geometry">
+          <mxGeometry x="1150" y="-98" width="177" height="190" as="geometry">
             <mxRectangle x="1239" y="170" width="96" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -30,6 +30,13 @@
         <mxCell id="-Khj6EZCj768f9oIWbaz-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="cHiQ8dfTekQaSsWwK8I8-31">
           <mxGeometry y="182" width="177" height="8" as="geometry" />
         </mxCell>
+        <mxCell id="AXRwTcH31-bJz70R7Td6-1" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=0;" edge="1" parent="1" source="k5UH-GX563T1KW69wESZ-7" target="_nXKBAGqSoXVlFx3pPv--1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1029" y="171" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="k5UH-GX563T1KW69wESZ-7" value="FileSystemConfig" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="951" y="283" width="167" height="60" as="geometry">
             <mxRectangle x="1239" y="170" width="96" height="26" as="alternateBounds" />
@@ -40,6 +47,9 @@
         </mxCell>
         <mxCell id="-Khj6EZCj768f9oIWbaz-5" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="k5UH-GX563T1KW69wESZ-7">
           <mxGeometry y="52" width="167" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="AXRwTcH31-bJz70R7Td6-2" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=0;" edge="1" parent="1" source="k5UH-GX563T1KW69wESZ-14" target="_nXKBAGqSoXVlFx3pPv--1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="k5UH-GX563T1KW69wESZ-14" value="MongoConfig" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="1150" y="283" width="177" height="242" as="geometry">
@@ -74,16 +84,23 @@
           <mxGeometry y="234" width="177" height="8" as="geometry" />
         </mxCell>
         <mxCell id="k5UH-GX563T1KW69wESZ-23" value="核心配置类" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1150" y="26" width="78" height="26" as="geometry" />
+          <mxGeometry x="1150" y="-124" width="78" height="26" as="geometry" />
         </mxCell>
         <mxCell id="k5UH-GX563T1KW69wESZ-24" value="MongoDB配置类" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1150" y="257" width="107" height="26" as="geometry" />
+          <mxGeometry x="1130" y="257" width="107" height="26" as="geometry" />
         </mxCell>
         <mxCell id="k5UH-GX563T1KW69wESZ-25" value="文件系统储存配置类" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="951" y="257" width="126" height="26" as="geometry" />
+          <mxGeometry x="900" y="257" width="126" height="26" as="geometry" />
         </mxCell>
         <mxCell id="ul4oub5gwxBayw6sAtwF-10" value="S3文件系统配置类" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1366" y="257" width="117" height="26" as="geometry" />
+          <mxGeometry x="1462" y="257" width="117" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="AXRwTcH31-bJz70R7Td6-3" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=0;" edge="1" parent="1" source="bQH0n5tfcJgVDLm7mBgM-1" target="_nXKBAGqSoXVlFx3pPv--1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1458" y="171" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="bQH0n5tfcJgVDLm7mBgM-1" value="S3Config" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
           <mxGeometry x="1366" y="283" width="177" height="190" as="geometry">
@@ -110,6 +127,20 @@
         </mxCell>
         <mxCell id="bQH0n5tfcJgVDLm7mBgM-6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="bQH0n5tfcJgVDLm7mBgM-1">
           <mxGeometry y="182" width="177" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="_nXKBAGqSoXVlFx3pPv--1" value="&lt;i&gt;StorageConfig&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1173.5" y="141" width="130" height="60" as="geometry">
+            <mxRectangle x="1239" y="170" width="96" height="26" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_nXKBAGqSoXVlFx3pPv--9" value="// ..." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="_nXKBAGqSoXVlFx3pPv--1">
+          <mxGeometry y="26" width="130" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="_nXKBAGqSoXVlFx3pPv--10" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="_nXKBAGqSoXVlFx3pPv--1">
+          <mxGeometry y="52" width="130" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="_nXKBAGqSoXVlFx3pPv--11" value="抽象存储配置类" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1173.5" y="115" width="102" height="26" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

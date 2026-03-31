@@ -3,6 +3,7 @@ package io.github.swsk33.fileliftcore.service.impl;
 import cn.hutool.core.io.file.FileNameUtil;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
 import io.github.swsk33.fileliftcore.model.config.CoreConfig;
+import io.github.swsk33.fileliftcore.model.config.StorageConfig;
 import io.github.swsk33.fileliftcore.model.file.UploadFile;
 import io.github.swsk33.fileliftcore.model.result.FileResult;
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
@@ -37,9 +38,9 @@ public class UploadFileServiceImpl implements UploadFileService {
 	 * 构造函数
 	 *
 	 * @param config        框架核心配置
-	 * @param storageConfig 文件系统配置
+	 * @param storageConfig 文件系统配置，需要是核心配置中配置的类型对应的存储配置类型
 	 */
-	public UploadFileServiceImpl(CoreConfig config, Object storageConfig) {
+	public UploadFileServiceImpl(CoreConfig config, StorageConfig storageConfig) {
 		this.config = config;
 		this.strategy = FileProcessStrategyContext.createStrategy(config, storageConfig);
 		this.validatorContext = new FileValidatorContext(config, strategy);

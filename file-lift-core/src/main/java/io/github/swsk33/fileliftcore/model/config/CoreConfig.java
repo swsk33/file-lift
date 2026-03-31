@@ -2,12 +2,14 @@ package io.github.swsk33.fileliftcore.model.config;
 
 import io.github.swsk33.fileliftcore.param.AutoRenameFormats;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * 核心通用配置类
  */
-@Data
+@Value
+@Builder
 public class CoreConfig {
 
 	/**
@@ -15,30 +17,33 @@ public class CoreConfig {
 	 * 配置值参考：{@link FileStorageMethods}中常量值
 	 * 若未配置或者配置为其它错误的值，则按照默认的filesystem方式
 	 */
-	private String storageMethod = FileStorageMethods.FILE;
+	@Builder.Default
+	String storageMethod = FileStorageMethods.FILE;
 
 	/**
 	 * 允许的文件格式（扩展名，不带.），若不配置则允许任何格式文件上传
 	 * 若要允许无扩展名的文件，配置为英文问号"?"即可
 	 */
-	private String[] allowedFormats;
+	String[] allowedFormats;
 
 	/**
 	 * 文件大小限制，单位为KB，不配置或者配置为小于等于0的值表示不限制大小
 	 */
-	private int sizeLimit;
+	int sizeLimit;
 
 	/**
 	 * <strong>仅在autoRename为false时生效！</strong>
 	 * <br>
 	 * 是否开启同名覆盖，默认：false
 	 */
-	private boolean override = false;
+	@Builder.Default
+	boolean override = false;
 
 	/**
 	 * 是否开启文件上传后自动重命名，默认：true
 	 */
-	private boolean autoRename = true;
+	@Builder.Default
+	boolean autoRename = true;
 
 	/**
 	 * <strong>仅在autoRename为true时生效！</strong>
@@ -47,6 +52,7 @@ public class CoreConfig {
 	 * 配置值参考{@link AutoRenameFormats}中的常量值
 	 * 若未配置或者配置为其它错误值，则按照默认的simple_uuid方式
 	 */
-	private String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
+	@Builder.Default
+	String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
 
 }

@@ -1,45 +1,52 @@
 package io.github.swsk33.fileliftcore.model.config;
 
-import lombok.Data;
+import lombok.*;
 import software.amazon.awssdk.regions.Region;
 
 /**
  * S3文件系统访问配置
  */
-@Data
-public class S3Config {
+@Value
+@Builder
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class S3Config extends StorageConfig {
 
 	/**
-	 * 访问地址
+	 * 访问地址，需要是：<code>http(s)://host:port</code>形式
+	 * 默认：http://127.0.0.1:9000
 	 */
-	private String endpoint;
+	@Builder.Default
+	String endpoint = "http://127.0.0.1:9000";
 
 	/**
 	 * 访问密钥 AK
 	 */
-	private String accessKey;
+	String accessKey;
 
 	/**
 	 * 加密密钥 SK
 	 */
-	private String secretKey;
+	String secretKey;
 
 	/**
 	 * 地域，参考{@link Region}，自部署S3服务可忽略
 	 * 默认：AWS_GLOBAL
 	 */
-	private Region region = Region.AWS_GLOBAL;
+	@Builder.Default
+	Region region = Region.AWS_GLOBAL;
 
 	/**
 	 * 是否开启S3路径访问风格
 	 * 设为false则采用虚拟主机 (Virtual Hosted) 风格
 	 * 默认：true
 	 */
-	private boolean pathStyle = true;
+	@Builder.Default
+	boolean pathStyle = true;
 
 	/**
 	 * 桶名
 	 */
-	private String bucketName;
+	String bucketName;
 
 }
