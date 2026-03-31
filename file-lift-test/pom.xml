@@ -12,15 +12,15 @@
 	<description>FileLift 测试模块</description>
 
 	<properties>
-		<spring.test.version>6.1.4</spring.test.version>
 		<spring.boot2.test.version>2.7.12</spring.boot2.test.version>
-		<spring.boot3.test.version>3.2.2</spring.boot3.test.version>
+		<spring.boot3.test.version>3.5.13</spring.boot3.test.version>
+		<maven.compiler.parameters>true</maven.compiler.parameters>
 	</properties>
 
 	<modules>
+		<module>file-lift-test-common</module>
 		<module>file-lift-spring-boot2-test</module>
 		<module>file-lift-spring-boot3-test</module>
-		<module>file-lift-spring-local-test</module>
 	</modules>
 
 	<!-- 管理测试项目中的依赖版本 -->
@@ -30,7 +30,7 @@
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
 				<artifactId>file-lift-spring-boot-starter</artifactId>
-				<version>${version}</version>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

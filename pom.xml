@@ -88,7 +88,7 @@
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
 				<artifactId>file-lift-core</artifactId>
-				<version>${version}</version>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
