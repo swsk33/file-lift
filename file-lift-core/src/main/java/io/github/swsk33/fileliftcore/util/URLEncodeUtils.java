@@ -3,7 +3,7 @@ package io.github.swsk33.fileliftcore.util;
 import java.net.URLEncoder;
 
 /**
- * URL编码的实用类
+ * URL 编码的实用类
  */
 public class URLEncodeUtils {
 

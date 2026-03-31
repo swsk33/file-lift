@@ -1,144 +1,59 @@
 package io.github.swsk33.fileliftcore.strategy.context;
 
-import io.github.swsk33.fileliftcore.model.BinaryContent;
-import io.github.swsk33.fileliftcore.model.file.UploadFile;
+import io.github.swsk33.fileliftcore.model.config.CoreConfig;
+import io.github.swsk33.fileliftcore.model.config.FileSystemConfig;
+import io.github.swsk33.fileliftcore.model.config.MongoConfig;
+import io.github.swsk33.fileliftcore.model.config.S3Config;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.FileSystemProcessStrategy;
-import io.github.swsk33.fileliftcore.strategy.impl.MinioFileProcessStrategy;
 import io.github.swsk33.fileliftcore.strategy.impl.MongoDBFileProcessStrategy;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.github.swsk33.fileliftcore.strategy.impl.S3FileProcessStrategy;
 
 /**
- * 用于文件增删改查策略的上下文
- * 该上下文采用延迟初始化策略的方式
+ * 用于创建文件处理策略的上下文
  */
 public class FileProcessStrategyContext {
 
 	/**
-	 * 存放所有文件增删改查策略的容器
+	 * 私有化构造器
 	 */
-	private static final Map<String, FileProcessStrategy> FILE_PROCESS_STRATEGY_MAP = new HashMap<>();
+	private FileProcessStrategyContext() {
 
-	/**
-	 * 存放文件储存方式名（常量）对应的文件储存策略类的容器
-	 * 用于在延迟初始化的时候，通过文件储存方式取出对应的策略类，并利用反射实例化然后放入策略容器
-	 */
-	private static final Map<String, Class<?>> FILE_STORAGE_METHOD_CLASS_MAP = new HashMap<>();
-
-	// 初始化储存方式常量对应的策略类容器
-	static {
-		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.FILE, FileSystemProcessStrategy.class);
-		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.MONGO, MongoDBFileProcessStrategy.class);
-		FILE_STORAGE_METHOD_CLASS_MAP.put(FileStorageMethods.MINIO, MinioFileProcessStrategy.class);
 	}
 
 	/**
-	 * 获取策略对象
+	 * 根据配置创建策略对象
 	 *
-	 * @param storageMethod 文件储存方式
-	 * @return 策略对象，如果文件储存方式不存在，则使用默认
+	 * @param coreConfig    核心配置
+	 * @param storageConfig 对应储存方式的配置对象
+	 * @return 文件处理策略对象
 	 */
-	private static FileProcessStrategy getStrategy(String storageMethod) {
-		// 如果该文件储存方式位于储存方式常量列表中，但是不在策略容器中，说明还未进行初始化
-		// 使用双检锁进行初始化每个策略对象（防止因为未使用的方案依赖未引入导致的ClassNotFound异常）
-		if (FileStorageMethods.contains(storageMethod) && !FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
-			synchronized (FileProcessStrategyContext.class) {
-				if (!FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
-					try {
-						// 反射构建策略实例
-						FILE_PROCESS_STRATEGY_MAP.put(storageMethod, (FileProcessStrategy) FILE_STORAGE_METHOD_CLASS_MAP.get(storageMethod).getConstructor().newInstance());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+	public static FileProcessStrategy createStrategy(CoreConfig coreConfig, Object storageConfig) {
+		// 获取配置的文件系统类型
+		String storageMethod = coreConfig.getStorageMethod();
+		// 文件系统存储
+		if (!FileStorageMethods.contains(storageMethod) || FileStorageMethods.FILE.equals(storageMethod)) {
+			if (!(storageConfig instanceof FileSystemConfig)) {
+				throw new IllegalArgumentException("本地文件系统储存方式需要传入 FileSystemConfig 类型配置");
 			}
+			return new FileSystemProcessStrategy((FileSystemConfig) storageConfig);
 		}
-		// 否则，就是传入了不存在的文件储存方式，按照默认值执行
-		if (!FILE_PROCESS_STRATEGY_MAP.containsKey(storageMethod)) {
-			return FILE_PROCESS_STRATEGY_MAP.get(FileStorageMethods.FILE);
+		// MongoDB GridFS 存储
+		if (FileStorageMethods.MONGO.equals(storageMethod)) {
+			if (!(storageConfig instanceof MongoConfig)) {
+				throw new IllegalArgumentException("MongoDB GridFS 储存方式需要传入 MongoConfig 类型配置");
+			}
+			return new MongoDBFileProcessStrategy(coreConfig, (MongoConfig) storageConfig);
 		}
-		return FILE_PROCESS_STRATEGY_MAP.get(storageMethod);
-	}
-
-	/**
-	 * 保存文件
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param file          上传的文件
-	 * @param saveName      保存的文件名（不带扩展名，扩展名会根据原始上传文件自动获取）
-	 * @return 保存的文件对象，其中不包含文件内容信息（文件流为空），若保存失败则返回null
-	 */
-	public static UploadFile saveFile(String storageMethod, MultipartFile file, String saveName) {
-		return getStrategy(storageMethod).saveFile(file, saveName);
-	}
-
-	/**
-	 * 删除文件
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param filename      要删除的文件名
-	 */
-	public static void deleteFile(String storageMethod, String filename) {
-		getStrategy(storageMethod).deleteFile(filename);
-	}
-
-	/**
-	 * 根据文件名查找文件，不使用扩展名
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param filename      文件名（不带扩展名）
-	 * @return 文件查找结果，不存在返回null
-	 */
-	public static UploadFile findFileByMainName(String storageMethod, String filename) {
-		return getStrategy(storageMethod).findFileByMainName(filename);
-	}
-
-	/**
-	 * 根据完整文件名直接获取文件
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param fullName      文件名（需要包含扩展名）
-	 * @return 文件查找结果，不存在返回null
-	 */
-	public static UploadFile findFileByFullName(String storageMethod, String fullName) {
-		return getStrategy(storageMethod).findFileByFullName(fullName);
-	}
-
-	/**
-	 * 根据完整文件名判断文件是否存在
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param fullName      文件名（需要包含扩展名）
-	 * @return 该文件是否存在
-	 */
-	public static boolean fileExists(String storageMethod, String fullName) {
-		return getStrategy(storageMethod).fileExists(fullName);
-	}
-
-	/**
-	 * 根据文件名下载文件，不使用扩展名
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param filename      文件名（不带扩展名）
-	 * @return 文件的二进制内容信息对象，文件不存在返回null
-	 */
-	public static BinaryContent downloadFileByMainName(String storageMethod, String filename) {
-		return getStrategy(storageMethod).downloadFileByMainName(filename);
-	}
-
-	/**
-	 * 根据完整文件名直接下载文件
-	 *
-	 * @param storageMethod 文件储存方式
-	 * @param fullName      文件名（需要包含扩展名）
-	 * @return 文件的二进制内容信息对象，文件不存在返回null
-	 */
-	public static BinaryContent downloadFileByFullName(String storageMethod, String fullName) {
-		return getStrategy(storageMethod).downloadFileByFullName(fullName);
+		// S3 协议文件系统
+		if (FileStorageMethods.S3.equals(storageMethod)) {
+			if (!(storageConfig instanceof S3Config)) {
+				throw new IllegalArgumentException("S3储存方式需要传入 S3Config 类型配置");
+			}
+			return new S3FileProcessStrategy(coreConfig, (S3Config) storageConfig);
+		}
+		throw new IllegalArgumentException("不支持的文件储存方式：" + storageMethod);
 	}
 
 }

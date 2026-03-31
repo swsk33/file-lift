@@ -2,38 +2,58 @@ package io.github.swsk33.fileliftcore.model.file;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
-import com.mongodb.client.gridfs.model.GridFSFile;
-import io.github.swsk33.fileliftcore.config.MongoClientConfigure;
+import com.mongodb.client.gridfs.GridFSBucket;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.Value;
 import org.bson.types.ObjectId;
 
 /**
  * MongoDB文件类型，存放文件信息
  */
-@Data
+@Value
+@ToString(callSuper = true, exclude = "bucket")
+@EqualsAndHashCode(callSuper = true)
 public class MongoFile extends UploadFile {
 
 	/**
-	 * 文件的id
+	 * 文件id
 	 */
-	private ObjectId id;
+	ObjectId id;
 
 	/**
-	 * 根据查询得到的GridFS文件结果，创建一个MongoDB文件信息对象
-	 *
-	 * @param file GridFS文件结果
-	 * @return MongoDB文件信息对象，若传入file为空，则返回null
+	 * 当前文件所属的 GridFS 桶
 	 */
-	public static MongoFile createMongoFile(GridFSFile file) {
-		MongoFile mongoFile = new MongoFile();
-		mongoFile.setName(file.getFilename());
-		if (file.getMetadata() != null) {
-			mongoFile.setFormat((String) file.getMetadata().get("type"));
-			mongoFile.setLength(file.getLength());
-		}
-		mongoFile.setId(file.getObjectId());
-		return mongoFile;
+	transient GridFSBucket bucket;
+
+	/**
+	 * 私有构造函数
+	 *
+	 * @param name   文件名
+	 * @param format 扩展名
+	 * @param length 文件大小
+	 * @param id     文件id
+	 * @param bucket 所属桶
+	 */
+	private MongoFile(String name, String format, long length, ObjectId id, GridFSBucket bucket) {
+		super(name, format, length);
+		this.id = id;
+		this.bucket = bucket;
+	}
+
+	/**
+	 * 创建 MongoDB 文件对象
+	 *
+	 * @param name   文件名
+	 * @param format 扩展名
+	 * @param length 文件大小
+	 * @param id     文件id
+	 * @param bucket 所属桶
+	 * @return 文件对象
+	 */
+	public static MongoFile createMongoFile(String name, String format, long length, ObjectId id, GridFSBucket bucket) {
+		return new MongoFile(name, format, length, id, bucket);
 	}
 
 	@Override
@@ -44,7 +64,7 @@ public class MongoFile extends UploadFile {
 			fileFullName.append(".").append(this.getFormat());
 		}
 		content.setContentType(HttpUtil.getMimeType(fileFullName.toString(), "application/octet-stream"));
-		content.setFileStream(MongoClientConfigure.getBucket().openDownloadStream(this.getId()));
+		content.setFileStream(bucket.openDownloadStream(this.getId()));
 		return content;
 	}
 

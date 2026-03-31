@@ -1,11 +1,14 @@
 package io.github.swsk33.fileliftcore.param;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
  * 文件存储方式的常量
  */
+@Slf4j
 public class FileStorageMethods {
 
 	/**
@@ -19,9 +22,9 @@ public class FileStorageMethods {
 	public static final String MONGO = "mongodb";
 
 	/**
-	 * 使用MinIO存储文件
+	 * 使用S3协议兼容存储文件
 	 */
-	public static final String MINIO = "minio";
+	public static final String S3 = "s3";
 
 	/**
 	 * 传入一个文件储存方式名，利用反射的方式检查这个储存方式是否属于上述所有的常量中的某一个

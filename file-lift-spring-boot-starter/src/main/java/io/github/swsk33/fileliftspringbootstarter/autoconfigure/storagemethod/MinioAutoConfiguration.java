@@ -1,6 +1,5 @@
 package io.github.swsk33.fileliftspringbootstarter.autoconfigure.storagemethod;
 
-import io.github.swsk33.fileliftcore.model.config.MinioConfig;
 import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import io.github.swsk33.fileliftspringbootstarter.autoconfigure.CoreConfigAutoConfiguration;
 import io.github.swsk33.fileliftspringbootstarter.property.MinioProperties;

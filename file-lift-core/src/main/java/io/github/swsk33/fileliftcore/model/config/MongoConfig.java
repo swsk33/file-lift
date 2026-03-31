@@ -9,30 +9,7 @@ import lombok.Data;
 public class MongoConfig {
 
 	/**
-	 * 唯一单例
-	 */
-	private static volatile MongoConfig INSTANCE;
-
-	/**
-	 * 获取文件系统方案配置单例
-	 */
-	public static MongoConfig getInstance() {
-		if (INSTANCE == null) {
-			synchronized (MongoConfig.class) {
-				if (INSTANCE == null) {
-					INSTANCE = new MongoConfig();
-				}
-			}
-		}
-		return INSTANCE;
-	}
-
-	private MongoConfig() {
-
-	}
-
-	/**
-	 * MongoDB连接字符串<br>
+	 * MongoDB 连接字符串<br>
 	 * 连接字符串格式：
 	 * <ul>
 	 *     <li>单节点：mongodb://user:password@host:port/database?authSource=authDatabase</li>

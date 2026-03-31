@@ -1,5 +1,7 @@
 package io.github.swsk33.fileliftcore.strategy.impl;
 
+import cn.hutool.cache.Cache;
+import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
@@ -14,14 +16,17 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
  * 适用于文件系统的文件处理方案
  */
 public class FileSystemProcessStrategy implements FileProcessStrategy {
+
+	/**
+	 * 文件系统配置对象
+	 */
+	private final FileSystemConfig config;
 
 	/**
 	 * 存放文件的文件夹对象
@@ -31,9 +36,17 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 	/**
 	 * 文件搜索缓存，存放每次查找结果，以加快查找速度
 	 * key：文件名，不带扩展名
-	 * value：文件对象
 	 */
-	private volatile Map<String, UploadFile> fileSearchCache;
+	Cache<String, UploadFile> fileSearchCache = CacheUtil.newLRUCache(200);
+
+	/**
+	 * 本地文件系统类型策略构造函数
+	 *
+	 * @param config 文件系统配置
+	 */
+	public FileSystemProcessStrategy(FileSystemConfig config) {
+		this.config = config;
+	}
 
 	/**
 	 * 获取保存文件夹的绝对路径
@@ -43,9 +56,9 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 	private String getSaveFolderPath() {
 		// 使用双检锁延迟初始化
 		if (saveFolder == null) {
-			synchronized (FileSystemProcessStrategy.class) {
+			synchronized (this) {
 				if (saveFolder == null) {
-					saveFolder = new File(FileSystemConfig.getInstance().getSaveFolder());
+					saveFolder = new File(config.getSaveFolder());
 					// 文件夹不存在则创建
 					if (!saveFolder.exists()) {
 						saveFolder.mkdirs();
@@ -54,23 +67,6 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 			}
 		}
 		return saveFolder.getAbsolutePath();
-	}
-
-	/**
-	 * 获取存放文件缓存结果的哈希表对象
-	 *
-	 * @return 存放文件缓存结果的哈希表
-	 */
-	private Map<String, UploadFile> getCacheMap() {
-		// 使用双检锁延迟初始化
-		if (fileSearchCache == null) {
-			synchronized (FileSystemProcessStrategy.class) {
-				if (fileSearchCache == null) {
-					fileSearchCache = new ConcurrentHashMap<>();
-				}
-			}
-		}
-		return fileSearchCache;
 	}
 
 	@Override
@@ -98,14 +94,14 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 		}
 		FileUtil.del(((LocalFile) getFile).getAbsolutePath());
 		// 若缓存中存在，也进行移除
-		getCacheMap().remove(filename);
+		fileSearchCache.remove(filename);
 	}
 
 	@Override
 	public UploadFile findFileByMainName(String filename) {
 		// 查找对应文件
 		// 先在缓存查找
-		UploadFile getFile = getCacheMap().get(filename);
+		UploadFile getFile = fileSearchCache.get(filename);
 		// 若查找得到结果为空，则在文件系统查找
 		if (getFile == null) {
 			// 找到的文件路径
@@ -131,7 +127,7 @@ public class FileSystemProcessStrategy implements FileProcessStrategy {
 			// 生成文件对象
 			getFile = LocalFile.createLocalFile(filePath.toString());
 			// 存入缓存
-			getCacheMap().put(filename, getFile);
+			fileSearchCache.put(filename, getFile);
 		}
 		return getFile;
 	}

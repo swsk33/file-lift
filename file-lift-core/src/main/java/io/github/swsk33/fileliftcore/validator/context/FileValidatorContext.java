@@ -1,6 +1,8 @@
 package io.github.swsk33.fileliftcore.validator.context;
 
+import io.github.swsk33.fileliftcore.model.config.CoreConfig;
 import io.github.swsk33.fileliftcore.model.result.FileValidateResult;
+import io.github.swsk33.fileliftcore.strategy.FileProcessStrategy;
 import io.github.swsk33.fileliftcore.validator.FileValidator;
 import io.github.swsk33.fileliftcore.validator.impl.FileFormatValidator;
 import io.github.swsk33.fileliftcore.validator.impl.FileOverrideValidator;
@@ -15,15 +17,19 @@ public class FileValidatorContext {
 	/**
 	 * 第一个校验器（入口）
 	 */
-	private static final FileValidator entrypoint;
+	private final FileValidator entrypoint;
 
-	// 初始化全部校验器对象
-	// 校验器顺序：大小 -> 格式 -> 覆盖检查
-	static {
+	/**
+	 * 文件校验器上下文构造函数
+	 *
+	 * @param config   框架核心配置
+	 * @param strategy 文件处理策略对象
+	 */
+	public FileValidatorContext(CoreConfig config, FileProcessStrategy strategy) {
 		// 实例化全部校验器
-		FileValidator sizeValidator = new FileSizeValidator();
-		FileValidator formatValidator = new FileFormatValidator();
-		FileValidator overrideValidator = new FileOverrideValidator();
+		FileValidator sizeValidator = new FileSizeValidator(config);
+		FileValidator formatValidator = new FileFormatValidator(config);
+		FileValidator overrideValidator = new FileOverrideValidator(config, strategy);
 		// 设定顺序
 		sizeValidator.setNext(formatValidator);
 		formatValidator.setNext(overrideValidator);
@@ -32,12 +38,13 @@ public class FileValidatorContext {
 	}
 
 	/**
-	 * 根据责任链校验规则，校验上传的文件
+	 * 进行校验
 	 *
-	 * @param file 上传的文件对象
+	 * @param file 传入校验文件
+	 * @param name 上传后的文件名，不带扩展名
 	 * @return 校验结果
 	 */
-	public static FileValidateResult validateFile(MultipartFile file, String name) {
+	public FileValidateResult validate(MultipartFile file, String name) {
 		return entrypoint.validateFile(file, name);
 	}
 

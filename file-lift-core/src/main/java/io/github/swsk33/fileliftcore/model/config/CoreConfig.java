@@ -5,37 +5,14 @@ import io.github.swsk33.fileliftcore.param.FileStorageMethods;
 import lombok.Data;
 
 /**
- * 核心通用配置类（单例）
+ * 核心通用配置类
  */
 @Data
-public class FileLiftCoreConfig {
-
-	/**
-	 * 唯一单例
-	 */
-	private static volatile FileLiftCoreConfig INSTANCE;
-
-	/**
-	 * 获取配置单例
-	 */
-	public static FileLiftCoreConfig getInstance() {
-		if (INSTANCE == null) {
-			synchronized (FileLiftCoreConfig.class) {
-				if (INSTANCE == null) {
-					INSTANCE = new FileLiftCoreConfig();
-				}
-			}
-		}
-		return INSTANCE;
-	}
-
-	private FileLiftCoreConfig() {
-
-	}
+public class CoreConfig {
 
 	/**
 	 * 设定文件的储存方式，可以配置下列值
-	 * 配置值参考：io.github.swsk33.fileliftcore.param.FileStorageMethods中常量值
+	 * 配置值参考：{@link FileStorageMethods}中常量值
 	 * 若未配置或者配置为其它错误的值，则按照默认的filesystem方式
 	 */
 	private String storageMethod = FileStorageMethods.FILE;
@@ -54,12 +31,12 @@ public class FileLiftCoreConfig {
 	/**
 	 * <strong>仅在autoRename为false时生效！</strong>
 	 * <br>
-	 * 是否开启同名覆盖
+	 * 是否开启同名覆盖，默认：false
 	 */
 	private boolean override = false;
 
 	/**
-	 * 是否开启文件上传后自动重命名
+	 * 是否开启文件上传后自动重命名，默认：true
 	 */
 	private boolean autoRename = true;
 
@@ -67,7 +44,7 @@ public class FileLiftCoreConfig {
 	 * <strong>仅在autoRename为true时生效！</strong>
 	 * <br>
 	 * 自动命名的命名格式
-	 * 配置值参考io.github.swsk33.fileliftcore.param.AutoRenameFormats中的常量值
+	 * 配置值参考{@link AutoRenameFormats}中的常量值
 	 * 若未配置或者配置为其它错误值，则按照默认的simple_uuid方式
 	 */
 	private String autoRenameFormat = AutoRenameFormats.SIMPLE_UUID;
