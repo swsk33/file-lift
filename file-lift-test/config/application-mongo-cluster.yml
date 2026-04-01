@@ -1,0 +1,14 @@
+####### 以下是FileLift相关配置 #######
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          # 使用 MongoDB 储存上传的文件
+          storage-method: "mongodb"
+
+# 配置 MongoDB 集群数据源
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://swsk33:dev-2333@127.0.0.1:25000,127.0.0.1:25001,127.0.0.1:25002/file_lift_test?authSource=admin"

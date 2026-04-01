@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.github.swsk33</groupId>
 		<artifactId>file-lift-test</artifactId>
 		<version>2.0.0</version>
 	</parent>
-	<artifactId>file-lift-spring-boot2-test</artifactId>
-	<name>FileLift - Spring Boot 2.x Test</name>
-	<description>FileLift - Spring Boot 2.x测试</description>
+	<artifactId>file-lift-spring-boot4-test</artifactId>
+	<name>FileLift - Spring Boot 4.x Test</name>
+	<description>FileLift - Spring Boot 4.x测试</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
@@ -25,7 +25,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
 		<dependency>
@@ -45,7 +45,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot2.test.version}</version>
+				<version>${spring.boot4.test.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -57,7 +57,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot2.test.version}</version>
+				<version>${spring.boot4.test.version}</version>
 				<executions>
 					<execution>
 						<goals>

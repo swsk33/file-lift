@@ -31,10 +31,10 @@ public class S3Config extends StorageConfig {
 
 	/**
 	 * 地域，参考{@link Region}，自部署S3服务可忽略
-	 * 默认：AWS_GLOBAL
+	 * 默认：US_EAST_1
 	 */
 	@Builder.Default
-	Region region = Region.AWS_GLOBAL;
+	Region region = Region.US_EAST_1;
 
 	/**
 	 * 是否开启S3路径访问风格

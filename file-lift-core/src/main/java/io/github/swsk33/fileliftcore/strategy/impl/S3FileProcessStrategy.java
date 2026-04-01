@@ -62,7 +62,7 @@ public class S3FileProcessStrategy implements FileProcessStrategy {
 		// 创建S3客户端构建器
 		S3ClientBuilder clientBuilder = S3Client.builder()
 				.region(region)
-				.serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build());
+				.serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(s3Config.isPathStyle()).build());
 		// 配置 Endpoint
 		if (!StrUtil.isEmpty(s3Config.getEndpoint())) {
 			clientBuilder.endpointOverride(URI.create(s3Config.getEndpoint()));
@@ -112,9 +112,11 @@ public class S3FileProcessStrategy implements FileProcessStrategy {
 				throw e;
 			}
 			CreateBucketRequest.Builder requestBuilder = CreateBucketRequest.builder().bucket(bucketName);
-			requestBuilder.createBucketConfiguration(
-					CreateBucketConfiguration.builder().locationConstraint(region.id()).build()
-			);
+			if (!Region.US_EAST_1.equals(region) && !Region.AWS_GLOBAL.equals(region)) {
+				requestBuilder.createBucketConfiguration(
+						CreateBucketConfiguration.builder().locationConstraint(region.id()).build()
+				);
+			}
 			s3Client.createBucket(requestBuilder.build());
 			log.info("S3存储桶不存在，已自动创建：{}", bucketName);
 		}

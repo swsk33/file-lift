@@ -14,6 +14,7 @@
 	<properties>
 		<spring.boot2.test.version>2.7.12</spring.boot2.test.version>
 		<spring.boot3.test.version>3.5.13</spring.boot3.test.version>
+		<spring.boot4.test.version>4.0.5</spring.boot4.test.version>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 	</properties>
 
@@ -21,6 +22,7 @@
 		<module>file-lift-test-common</module>
 		<module>file-lift-spring-boot2-test</module>
 		<module>file-lift-spring-boot3-test</module>
+		<module>file-lift-spring-boot4-test</module>
 	</modules>
 
 	<!-- 管理测试项目中的依赖版本 -->

@@ -29,9 +29,9 @@ public class S3Properties {
 	private String secretKey;
 
 	/**
-	 * 地域，默认：aws-global
+	 * 地域，默认：us-east-1
 	 */
-	private String region = "aws-global";
+	private String region = "us-east-1";
 
 	/**
 	 * 是否开启路径访问风格

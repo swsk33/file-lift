@@ -1,0 +1,16 @@
+####### 以下是FileLift相关配置 #######
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          # 使用S3协议文件系统储存上传的文件
+          storage-method: "s3"
+        # 配置S3协议的文件系统
+        s3:
+          endpoint: "${S3_ENDPOINT:http://127.0.0.1:9000}"
+          accessKey: "${S3_AK:root}"
+          secretKey: "${S3_SK:dev-2333}"
+          region: "${S3_REGION:us-east-1}"
+          path-style: true
+          bucketName: "${S3_BUCKET:demo}"

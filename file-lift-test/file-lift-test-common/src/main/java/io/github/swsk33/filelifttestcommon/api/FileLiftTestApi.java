@@ -32,6 +32,28 @@ public class FileLiftTestApi {
 	private UploadFileService uploadFileService;
 
 	/**
+	 * 从文件对象提取二进制内容并返回为响应体对象
+	 *
+	 * @param fullName 文件名称
+	 * @param result   查询得到的文件对象
+	 * @return 响应体
+	 */
+	private ResponseEntity<byte[]> parseResponseEntity(String fullName, FileResult<BinaryContent> result) {
+		// 不成功返回404
+		if (!result.isSuccess()) {
+			return ResponseEntity.notFound().build();
+		}
+		// 获取结果中二进制对象
+		BinaryContent content = result.getData();
+		// 构建请求头，设定正确的Content-Type和attachment头
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType(content.getContentType()));
+		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fullName).build());
+		// 构建并返回响应体
+		return ResponseEntity.ok().headers(headers).body(content.getByteAndClose());
+	}
+
+	/**
 	 * 上传文件接口
 	 *
 	 * @param file 接收的文件对象（MultipartFile表单形式）
@@ -96,14 +118,7 @@ public class FileLiftTestApi {
 	@GetMapping("/download/{filename}")
 	public ResponseEntity<byte[]> downloadByName(@PathVariable String filename) {
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByMainName(filename);
-		if (!result.isSuccess()) {
-			return ResponseEntity.notFound().build();
-		}
-		BinaryContent content = result.getData();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.parseMediaType(content.getContentType()));
-		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(filename).build());
-		return ResponseEntity.ok().headers(headers).body(content.getByteAndClose());
+		return parseResponseEntity(filename, result);
 	}
 
 	/**
@@ -115,14 +130,7 @@ public class FileLiftTestApi {
 	@GetMapping("/download-full/{fullName}")
 	public ResponseEntity<byte[]> downloadByFullName(@PathVariable String fullName) {
 		FileResult<BinaryContent> result = uploadFileService.downloadFileByFullName(fullName);
-		if (!result.isSuccess()) {
-			return ResponseEntity.notFound().build();
-		}
-		BinaryContent content = result.getData();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.parseMediaType(content.getContentType()));
-		headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fullName).build());
-		return ResponseEntity.ok().headers(headers).body(content.getByteAndClose());
+		return parseResponseEntity(fullName, result);
 	}
 
 }

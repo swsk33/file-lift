@@ -1,4 +1,4 @@
-package io.github.swsk33.fileliftspringboot3test;
+package io.github.swsk33.fileliftspringboot4test;
 
 import io.github.swsk33.filelifttestcommon.api.FileLiftTestApi;
 import org.springframework.boot.SpringApplication;

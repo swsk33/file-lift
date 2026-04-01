@@ -1,0 +1,23 @@
+####### 以下是FileLift相关配置 #######
+io:
+  github:
+    swsk33:
+      file-lift:
+        core:
+          # 使用 MongoDB 储存上传的文件
+          storage-method: "mongodb"
+
+# 配置 MongoDB 数据源
+spring:
+  data:
+    mongodb:
+      host: "${MONGO_HOST:127.0.0.1}"
+      port: "${MONGO_PORT:27017}"
+      database: "${MONGO_DB:file_lift_test}"
+      username: "${MONGO_USER:root}"
+      password: "${MONGO_PASSWORD:dev-2333}"
+      # 认证数据库，不配置则默认admin
+      authentication-database: "${MONGO_AUTH_DB:admin}"
+      gridfs:
+        # 文件存储桶名称，不配置则默认fs
+        bucket: "${MONGO_BUCKET:my_fs}"

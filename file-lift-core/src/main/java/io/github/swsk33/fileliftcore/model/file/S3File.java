@@ -3,7 +3,9 @@ package io.github.swsk33.fileliftcore.model.file;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import lombok.Value;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -34,6 +36,7 @@ public class S3File extends UploadFile {
 	/**
 	 * 当前文件所属S3客户端
 	 */
+	@Getter(AccessLevel.NONE)
 	transient S3Client s3Client;
 
 	/**

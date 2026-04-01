@@ -4,9 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.mongodb.client.gridfs.GridFSBucket;
 import io.github.swsk33.fileliftcore.model.BinaryContent;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
+import lombok.*;
 import org.bson.types.ObjectId;
 
 /**
@@ -25,6 +23,7 @@ public class MongoFile extends UploadFile {
 	/**
 	 * 当前文件所属的 GridFS 桶
 	 */
+	@Getter(AccessLevel.NONE)
 	transient GridFSBucket bucket;
 
 	/**
