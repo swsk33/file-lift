@@ -9,6 +9,10 @@ io:
 
 # 配置 MongoDB 集群数据源
 spring:
+  # Spring Boot 4.x配置
+  mongodb:
+    uri: "mongodb://swsk33:dev-2333@127.0.0.1:25000,127.0.0.1:25001,127.0.0.1:25002/file_lift_test?authSource=admin"
+  # Spring Boot 3.x配置
   data:
     mongodb:
       uri: "mongodb://swsk33:dev-2333@127.0.0.1:25000,127.0.0.1:25001,127.0.0.1:25002/file_lift_test?authSource=admin"

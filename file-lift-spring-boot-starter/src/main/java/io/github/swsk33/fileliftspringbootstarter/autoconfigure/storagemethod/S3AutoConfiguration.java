@@ -21,6 +21,12 @@ import software.amazon.awssdk.regions.Region;
 @ConditionalOnProperty(prefix = "io.github.swsk33.file-lift.core", name = "storage-method", havingValue = FileStorageMethods.S3)
 public class S3AutoConfiguration {
 
+	/**
+	 * 自动配置S3文件系统存储配置
+	 *
+	 * @param s3Properties 自定义S3存储配置属性
+	 * @return S3文件系统存储配置
+	 */
 	@Bean
 	public S3Config createS3Config(S3Properties s3Properties) {
 		S3Config.S3ConfigBuilder builder = S3Config.builder();

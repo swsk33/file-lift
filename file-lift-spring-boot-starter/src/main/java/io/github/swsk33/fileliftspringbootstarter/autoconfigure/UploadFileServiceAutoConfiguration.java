@@ -23,7 +23,7 @@ public class UploadFileServiceAutoConfiguration {
 	 * 自动配置核心服务类
 	 */
 	@Bean
-	@ConditionalOnMissingBean(UploadFileService.class)
+	@ConditionalOnMissingBean
 	public UploadFileService uploadFileService(CoreConfig coreConfig, StorageConfig storageConfig) {
 		UploadFileServiceImpl service = new UploadFileServiceImpl(coreConfig, storageConfig);
 		log.info("------- FileLift文件上传服务已完成自动配置( • ̀ω•́ )✧ -------");

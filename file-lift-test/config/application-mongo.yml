@@ -9,15 +9,25 @@ io:
 
 # 配置 MongoDB 数据源
 spring:
+  # Spring Boot 4.x配置
+  mongodb:
+    host: "${MONGO_HOST:127.0.0.1}"
+    port: "${MONGO_PORT:27017}"
+    database: "${MONGO_DB:file_lift_test}"
+    username: "${MONGO_USER:root}"
+    password: "${MONGO_PASSWORD:dev-2333}"
+    authentication-database: "${MONGO_AUTH_DB:admin}"
+  # Spring Boot 3.x配置
   data:
     mongodb:
-      host: "${MONGO_HOST:127.0.0.1}"
-      port: "${MONGO_PORT:27017}"
-      database: "${MONGO_DB:file_lift_test}"
-      username: "${MONGO_USER:root}"
-      password: "${MONGO_PASSWORD:dev-2333}"
+      host: ${spring.mongodb.host}
+      port: ${spring.mongodb.port}
+      database: ${spring.mongodb.database}
+      username: ${spring.mongodb.username}
+      password: ${spring.mongodb.password}
       # 认证数据库，不配置则默认admin
-      authentication-database: "${MONGO_AUTH_DB:admin}"
+      authentication-database: ${spring.mongodb.authentication-database}
+      # GridFS 配置
       gridfs:
         # 文件存储桶名称，不配置则默认fs
         bucket: "${MONGO_BUCKET:my_fs}"

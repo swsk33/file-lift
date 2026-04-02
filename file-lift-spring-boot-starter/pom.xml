@@ -24,13 +24,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- MongoDB Starter依赖（用于获取配置） -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- AWS S3依赖（用于S3配置和对象存储支持） -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>

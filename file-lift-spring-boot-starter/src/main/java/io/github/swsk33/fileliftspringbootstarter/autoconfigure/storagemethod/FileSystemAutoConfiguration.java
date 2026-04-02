@@ -19,6 +19,12 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(prefix = "io.github.swsk33.file-lift.core", name = "storage-method", havingValue = FileStorageMethods.FILE, matchIfMissing = true)
 public class FileSystemAutoConfiguration {
 
+	/**
+	 * 自动配置本地文件系统存储方案
+	 *
+	 * @param fileSystemProperties 加载自定义文件系统配置属性
+	 * @return 文件系统存储配置
+	 */
 	@Bean
 	public FileSystemConfig createFileSystemConfig(FileSystemProperties fileSystemProperties) {
 		FileSystemConfig config = FileSystemConfig.builder()
