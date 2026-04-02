@@ -9,8 +9,8 @@ io:
         # 配置S3协议的文件系统
         s3:
           endpoint: "${S3_ENDPOINT:http://127.0.0.1:9000}"
-          accessKey: "${S3_AK:root}"
-          secretKey: "${S3_SK:dev-2333}"
+          access-key: "${S3_AK:root}"
+          secret-key: "${S3_SK:dev-2333}"
           region: "${S3_REGION:us-east-1}"
           path-style: true
-          bucketName: "${S3_BUCKET:demo}"
+          bucket-name: "${S3_BUCKET:demo}"

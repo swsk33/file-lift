@@ -170,6 +170,7 @@
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
+					<doclint>all,-missing</doclint>
 				</configuration>
 				<executions>
 					<execution>
