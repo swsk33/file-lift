@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.swsk33</groupId>
 	<artifactId>file-lift-parent</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<packaging>pom</packaging>
 	<name>FileLift - Total Parent</name>
 	<description>一款用于文件上传的外部库，其中封装了多种文件上传和管理操作的接口，并且支持使用文件系统或者数据库等多种方式存放文件，经过简单配置即可使用</description>
