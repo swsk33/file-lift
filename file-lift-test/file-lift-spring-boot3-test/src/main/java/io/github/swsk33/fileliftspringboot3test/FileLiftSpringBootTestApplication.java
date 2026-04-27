@@ -1,10 +1,12 @@
 package io.github.swsk33.fileliftspringboot3test;
 
-import io.github.swsk33.filelifttestcommon.api.FileLiftTestApi;
+import io.github.swsk33.filelifttestcommon.FileLiftTestCommonApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication(scanBasePackageClasses = {FileLiftSpringBootTestApplication.class, FileLiftTestApi.class})
+@SpringBootApplication
+@Import(FileLiftTestCommonApplication.class)
 public class FileLiftSpringBootTestApplication {
 
 	public static void main(String[] args) {
