@@ -9,11 +9,10 @@
 	<description>一款用于文件上传的外部库，其中封装了多种文件上传和管理操作的接口，并且支持使用文件系统或者数据库等多种方式存放文件，经过简单配置即可使用</description>
 	<url>https://github.com/swsk33/file-lift</url>
 
-	<!-- 指定构建该项目时，需要构建的子模块 -->
-	<!-- 不构建所有的测试模块 -->
 	<modules>
 		<module>file-lift-core</module>
 		<module>file-lift-spring-boot-starter</module>
+		<module>file-lift-test</module>
 	</modules>
 
 	<properties>
@@ -23,7 +22,7 @@
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-boot-starter.version>2.7.18</spring-boot-starter.version>
-		<maven.test-plugin.version>3.5.4</maven.test-plugin.version>
+		<maven.test-plugin.version>3.5.5</maven.test-plugin.version>
 	</properties>
 
 	<licenses>
@@ -99,13 +98,6 @@
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
 				<artifactId>file-lift-core</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<!-- FileLift Spring Boot Starter -->
-			<dependency>
-				<groupId>io.github.swsk33</groupId>
-				<artifactId>file-lift-spring-boot-starter</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
