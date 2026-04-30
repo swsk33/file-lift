@@ -93,13 +93,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-			<!-- FileLift 核心 -->
-			<dependency>
-				<groupId>io.github.swsk33</groupId>
-				<artifactId>file-lift-core</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

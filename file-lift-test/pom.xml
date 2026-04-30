@@ -30,10 +30,10 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- FileLift Spring Boot Starter -->
+			<!-- FileLift 测试公用模块 -->
 			<dependency>
 				<groupId>io.github.swsk33</groupId>
-				<artifactId>file-lift-spring-boot-starter</artifactId>
+				<artifactId>file-lift-test-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
